@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>这个项目我看过 · 创投动物园</title>
+<meta name="description" content="刷完10个虚构项目，看看你是哪种投资动物。全部内容均为虚构，不构成投资建议。">
+<style>
+:root{
+  --paper:#f4ead3; --paper2:#efe2c4; --ink:#2a2118; --ink2:#5c5142;
+  --gh:#d94a2b; --gc:#7c4fb0; --wh:#1f7f99; --wc:#c98f1f;
+  --line:#2a2118; --ok:#2e7d4f; --bad:#b3341f;
+  --card-r:16px; --btn-h:56px;
+  --fam:#d94a2b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  background:var(--paper); color:var(--ink); line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(42,33,24,.05) 1px, transparent 1px);
+  background-size:24px 24px;
+}
+button{font-family:inherit;cursor:pointer}
+.screen{display:none;min-height:100vh;min-height:100dvh}
+.screen.active{display:flex;flex-direction:column}
+.wrap{width:100%;max-width:600px;margin:0 auto;padding:16px;display:flex;flex-direction:column;flex:1}
+
+/* ---------- 首页 ---------- */
+#home .wrap{justify-content:center;text-align:center;gap:14px;padding-bottom:40px}
+.logo-badge{font-size:13px;letter-spacing:.35em;color:var(--ink2);font-weight:700}
+h1.title{font-size:clamp(30px,8vw,44px);font-weight:900;letter-spacing:.04em}
+.subtitle{font-size:clamp(16px,4.5vw,20px);color:var(--ink2);font-weight:600}
+.zoo-strip{font-size:30px;letter-spacing:6px;filter:saturate(.9);margin:6px 0}
+.rules{
+  text-align:left;background:rgba(255,255,255,.55);border:2px solid var(--ink);
+  border-radius:var(--card-r);padding:14px 16px;font-size:14px;color:var(--ink2)
+}
+.rules li{margin:4px 0 4px 1.2em}
+.cta{
+  height:60px;border:3px solid var(--ink);border-radius:14px;background:var(--gh);
+  color:#fff;font-size:20px;font-weight:800;letter-spacing:.15em;
+  box-shadow:4px 4px 0 var(--ink);transition:transform .1s
+}
+.cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.disclaimer{font-size:12px;color:var(--ink2);opacity:.85}
+.resume-box{background:#fff8e8;border:2px dashed var(--ink);border-radius:12px;padding:12px;font-size:14px}
+.resume-box button{margin:8px 6px 0;padding:8px 18px;border:2px solid var(--ink);border-radius:10px;background:#fff;font-weight:700}
+.resume-box button.primary{background:var(--wh);color:#fff}
+
+/* ---------- 转场 ---------- */
+#transition .wrap{justify-content:center;align-items:center;text-align:center;gap:12px}
+.trans-emoji{font-size:64px}
+.trans-text{font-size:18px;font-weight:700;letter-spacing:.2em}
+
+/* ---------- 游戏页 ---------- */
+#game .wrap{max-width:600px;padding:10px 14px calc(12px + env(safe-area-inset-bottom));height:100vh;height:100dvh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:10px;height:48px;flex:none}
+.qnum{font-weight:800;font-size:15px;min-width:44px}
+.segs{flex:1;display:flex;gap:3px}
+.seg{flex:1;height:8px;border:1.5px solid var(--ink);border-radius:4px;background:transparent}
+.seg.done{background:var(--ink)}
+.seg.now{background:var(--fam)}
+.pcard{
+  flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px;
+  border:3px solid var(--ink);border-radius:var(--card-r);background:rgba(255,255,255,.62);
+  box-shadow:5px 5px 0 rgba(42,33,24,.25);padding:18px;margin:10px 0;overflow:auto
+}
+.p-name{font-size:clamp(24px,7vw,34px);font-weight:900}
+.p-meta{font-size:14px;font-weight:700;color:#fff;background:var(--ink);display:inline-block;
+  padding:3px 10px;border-radius:8px;align-self:flex-start}
+.p-pitch{font-size:clamp(16px,4.6vw,20px);font-weight:600}
+.p-nums{display:flex;flex-direction:column;gap:6px;margin:2px 0}
+.p-num{font-size:14px;font-weight:700;background:var(--paper2);border:2px solid var(--ink);
+  border-radius:9px;padding:6px 10px;font-variant-numeric:tabular-nums}
+.p-risk{font-size:14px;color:var(--bad);font-weight:700;border-top:2px dashed rgba(42,33,24,.35);padding-top:8px}
+.p-risk b{background:var(--bad);color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:12px}
+.btnrow{display:flex;gap:10px;flex:none}
+.abtn{
+  flex:1;height:var(--btn-h);min-height:52px;border:3px solid var(--ink);border-radius:13px;
+  font-size:17px;font-weight:800;background:#fff;box-shadow:3px 3px 0 var(--ink);transition:transform .1s
+}
+.abtn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.abtn:disabled{opacity:.55;cursor:default}
+.abtn.pass{color:var(--bad)}
+.abtn.look{color:var(--ink2)}
+.abtn.invest{background:var(--ink);color:var(--paper)}
+.keyhint{display:none;text-align:center;font-size:12px;color:var(--ink2);margin-top:8px}
+.stamp{
+  position:fixed;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none;z-index:40
+}
+.stamp span{
+  font-size:44px;font-weight:900;border:5px solid currentColor;border-radius:14px;
+  padding:8px 26px;transform:rotate(-12deg);background:rgba(244,234,211,.9)
+}
+.stamp.show{display:flex}
+
+/* ---------- 揭晓 ---------- */
+#reveal .wrap{justify-content:center;align-items:center;gap:10px;text-align:center}
+.reveal-fig{font-size:110px;filter:brightness(0);transition:filter .45s ease}
+.reveal-fig.lit{filter:none}
+.reveal-fig img{width:150px;height:150px;object-fit:contain}
+@media (prefers-reduced-motion:reduce){.reveal-fig{transition:none}}
+
+/* ---------- 结果页 ---------- */
+#result{background:var(--paper)}
+#result .wrap{max-width:520px;gap:16px;padding-bottom:48px}
+.rcard{
+  width:100%;border:3px solid var(--ink);border-radius:18px;
+  background:var(--paper);display:flex;flex-direction:column;
+  box-shadow:6px 6px 0 rgba(42,33,24,.3);position:relative;padding:18px 20px
+}
+.rc-head{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--ink2)}
+.rc-figwrap{position:relative;display:flex;align-items:center;justify-content:center;flex:none;height:clamp(120px,34vw,210px);margin:10px 0}
+.rc-circle{position:absolute;height:min(96%,200px);aspect-ratio:1;border-radius:50%;background:var(--fam);opacity:.92}
+.rc-fig{position:relative;font-size:clamp(64px,22vw,96px);line-height:1}
+.rc-fig img{width:auto;height:clamp(100px,30vw,190px);object-fit:contain;display:block}
+.rc-code{font-size:clamp(26px,8vw,36px);font-weight:900;letter-spacing:.3em;text-align:center}
+.rc-name{display:flex;justify-content:center;align-items:baseline;gap:10px}
+.rc-zh{font-size:clamp(24px,7vw,32px);font-weight:900}
+.rc-en{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--fam)}
+.rc-line{text-align:center;font-size:14px;font-weight:600;color:var(--ink2);margin-top:1%}
+.rc-proj{
+  margin-top:3%;border:2px solid var(--ink);border-radius:12px;background:rgba(255,255,255,.6);
+  padding:8px 10px;font-size:13px
+}
+.rc-proj .tag{font-size:11px;font-weight:800;color:var(--fam)}
+.rc-proj .pname{font-weight:900;font-size:15px}
+.rc-proj .psum{color:var(--ink);font-size:12px;margin-top:2px}
+.rc-proj .phook{color:var(--ink2);font-style:italic;font-size:12px;margin-top:2px}
+.rc-stats{display:flex;margin-top:3%;border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+.rc-stat{flex:1;text-align:center;padding:7px 2px;background:rgba(255,255,255,.6)}
+.rc-stat+.rc-stat{border-left:2px solid var(--ink)}
+.rc-stat .v{font-weight:900;font-size:17px;font-variant-numeric:tabular-nums}
+.rc-stat .k{font-size:11px;color:var(--ink2)}
+.rc-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:3%;font-size:10px;color:var(--ink2)}
+.rc-qr{width:44px;height:44px;border:2px solid var(--ink);border-radius:6px;display:grid;place-items:center;font-size:8px;text-align:center;background:#fff;line-height:1.2}
+.lowconf{font-size:13px;color:var(--ink2);background:#fff3d6;border:2px dashed var(--ink);border-radius:10px;padding:8px 12px}
+.share-row{display:flex;gap:10px;flex-wrap:wrap}
+.share-row button{
+  flex:1;min-width:130px;height:52px;border:3px solid var(--ink);border-radius:12px;
+  font-size:16px;font-weight:800;background:#fff;box-shadow:3px 3px 0 var(--ink)
+}
+.share-row button.primary{background:var(--fam);color:#fff}
+details.fold{border:2px solid var(--ink);border-radius:12px;background:rgba(255,255,255,.55);overflow:hidden}
+details.fold summary{padding:12px 14px;font-weight:800;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+details.fold summary::after{content:"＋"}
+details.fold[open] summary::after{content:"－"}
+.fold-body{padding:0 14px 14px;font-size:14px;color:var(--ink2)}
+.axis-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed rgba(42,33,24,.25);gap:8px}
+.axis-row b{color:var(--ink)}
+.oc{border-bottom:1px dashed rgba(42,33,24,.25);padding:10px 0}
+.oc:last-child{border-bottom:none}
+.oc-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.oc-name{font-weight:900;color:var(--ink)}
+.oc-badge{font-size:11px;font-weight:800;padding:1px 8px;border-radius:7px;border:2px solid;white-space:nowrap}
+.oc-badge.mine{color:var(--bad);border-color:var(--bad)}
+.oc-badge.safe{color:var(--ok);border-color:var(--ok)}
+.oc-you{font-size:12px;font-weight:700}
+.oc-sum{font-size:13px;margin-top:3px}
+.oc-hook{font-size:12px;font-style:italic;opacity:.85;margin-top:2px}
+.again{height:58px;border:3px solid var(--ink);border-radius:13px;background:var(--ink);
+  color:var(--paper);font-size:18px;font-weight:800;box-shadow:4px 4px 0 rgba(42,33,24,.3)}
+.foot-note{text-align:center;font-size:12px;color:var(--ink2)}
+.imgoverlay{position:fixed;inset:0;background:rgba(42,33,24,.9);z-index:60;display:none;
+  flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px}
+.imgoverlay.show{display:flex}
+.imgoverlay img{max-width:82%;max-height:74vh;border-radius:12px}
+.imgoverlay p{color:var(--paper);font-weight:700}
+.imgoverlay button{padding:10px 30px;border:2px solid var(--paper);background:transparent;color:var(--paper);border-radius:10px;font-size:16px;font-weight:700}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:10px 20px;border-radius:12px;font-size:14px;font-weight:700;z-index:70;display:none}
+.toast.show{display:block}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:3px solid var(--wh);outline-offset:2px}
+
+/* ---------- 响应式 ---------- */
+@media (min-width:480px){ #game .wrap,.wrap{max-width:600px} }
+@media (min-width:768px){
+  #game .wrap{max-width:760px}
+  .p-nums{flex-direction:row}
+  .p-num{flex:1}
+}
+@media (min-width:1024px){
+  .wrap{max-width:960px}
+  #game .wrap{max-width:960px}
+  .pcard{flex-direction:row;align-items:center;gap:26px;padding:30px}
+  .pcard .p-left{flex:55;display:flex;flex-direction:column;gap:12px}
+  .pcard .p-right{flex:45;display:flex;flex-direction:column;gap:12px}
+  .btnrow{max-width:720px;margin:0 auto;width:100%}
+  .keyhint{display:block}
+  #result .wrap{max-width:520px}
+}
+@media (min-width:768px) and (max-height:600px) and (orientation:landscape){
+  .pcard{flex-direction:row;align-items:center;gap:22px}
+  .pcard .p-left,.pcard .p-right{flex:1;display:flex;flex-direction:column;gap:10px}
+}
+@media (min-width:1440px){ .wrap{max-width:960px} }
+@media (max-height:600px){ #game .wrap{overflow:auto} }
+</style>
+</head>
+<body>
+
+<div id="home" class="screen active">
+  <main class="wrap">
+    <div class="logo-badge">DEAL ZOO 16</div>
+    <h1 class="title">这个项目我看过</h1>
+    <p class="subtitle">创投动物园<br>看看你是哪种投资动物</p>
+    <div class="zoo-strip" aria-hidden="true">🐆🐵🐓🦆🐏🦄🐘🐭</div>
+    <div id="resumeBox" class="resume-box" hidden>
+      <b>发现未完成的一局。</b>
+      <div>
+        <button id="btnResume" class="primary">继续本局</button>
+        <button id="btnRestart">重新开始</button>
+      </div>
+    </div>
+    <ul class="rules">
+      <li>从25个虚构项目中随机抽10个，不限时，凭直觉刷完。</li>
+      <li>三个选择：<b>PASS ｜ 再看看 ｜ 投了</b>。</li>
+      <li>每题只能选一次，不能返回修改。</li>
+      <li>10题结束，揭晓你的四字母投资动物人格。</li>
+    </ul>
+    <button id="btnStart" class="cta">开始尽调</button>
+    <p class="disclaimer">全部公司、人物、数字及结局均为虚构，不构成投资建议。<br>V1无登录、无排行榜、不收集任何信息。</p>
+  </main>
+</div>
+
+<div id="transition" class="screen">
+  <div class="wrap">
+    <div class="trans-emoji" aria-hidden="true">🗂️</div>
+    <div class="trans-text">项目正在进场…</div>
+  </div>
+</div>
+
+<div id="game" class="screen">
+  <main class="wrap">
+    <div class="topbar">
+      <span class="qnum" id="qnum">1/10</span>
+      <div class="segs" id="segs" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" aria-label="第1题，共10题"></div>
+    </div>
+    <section class="pcard" id="pcard" aria-label="项目卡"></section>
+    <div class="btnrow">
+      <button class="abtn pass" id="btnPass">PASS</button>
+      <button class="abtn look" id="btnLook">再看看</button>
+      <button class="abtn invest" id="btnInvest">投了</button>
+    </div>
+    <p class="keyhint">键盘：1 PASS ｜ 2 再看看 ｜ 3 投了</p>
+  </main>
+</div>
+
+<div class="stamp" id="stamp" aria-hidden="true"><span id="stampText"></span></div>
+
+<div id="reveal" class="screen">
+  <div class="wrap">
+    <div class="reveal-fig" id="revealFig">🦄</div>
+    <div class="trans-text">正在核对你的投资DNA…</div>
+  </div>
+</div>
+
+<div id="result" class="screen">
+  <main class="wrap">
+    <div class="rcard" id="rcard">
+      <div class="rc-head"><span>创投动物园</span><span>DEAL ZOO 16</span></div>
+      <div class="rc-figwrap"><div class="rc-circle"></div><div class="rc-fig" id="rcFig">🦄</div></div>
+      <div class="rc-code" id="rcCode">GHPT</div>
+      <div class="rc-name"><span class="rc-zh" id="rcZh">组局豹</span><span class="rc-en" id="rcEn">LEAD LEOPARD</span></div>
+      <div class="rc-line" id="rcLine"></div>
+      <div class="rc-proj" id="rcProj"></div>
+      <div class="rc-stats" id="rcStats"></div>
+      <div class="rc-foot">
+        <span>全部虚构 · 不构成投资建议</span>
+        <span class="rc-qr">二维码<br>占位</span>
+      </div>
+    </div>
+    <div class="lowconf" id="lowconfNote" hidden></div>
+    <div class="share-row">
+      <button id="btnShare" class="primary">分享结果卡</button>
+      <button id="btnSavePng">保存图片</button>
+      <button id="btnCopyText">复制文案</button>
+    </div>
+    <details class="fold">
+      <summary>为什么是这个人格</summary>
+      <div class="fold-body" id="whyBody"></div>
+    </details>
+    <details class="fold">
+      <summary>本局10个项目的完整结局</summary>
+      <div class="fold-body" id="ocBody"></div>
+    </details>
+    <button class="again" id="btnAgain">再玩一局</button>
+    <p class="foot-note">项目结局预先写死，不随作答变化。<br>全部公司、人物、数字及结局均为虚构。</p>
+  </main>
+</div>
+
+<div class="imgoverlay" id="imgOverlay">
+  <img id="overlayImg" alt="结果卡图片">
+  <p id="overlayTip">长按图片保存</p>
+  <button id="overlayClose">关闭</button>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+/* ================= 数据 ================= */
+const FAMILY = {
+  GH:{color:"#d94a2b"}, GC:{color:"#7c4fb0"}, WH:{color:"#1f7f99"}, WC:{color:"#c98f1f"}
+};
+const TYPES = {
+  GHPT:{zh:"组局豹",en:"LEAD LEOPARD",emoji:"🐆",line:"项目还没定，你已经把下一轮的人拉进群了。"},
+  GHPL:{zh:"火箭猴",en:"ROCKET MONKEY",emoji:"🐵",line:"风口刚冒烟，你已经点火；别人问数据，你问几点发车。"},
+  GHNT:{zh:"定价鸡",en:"PRICE ROOSTER",emoji:"🐓",line:"越热的局越要先报数，你用估值表把共识钉在墙上。"},
+  GHNL:{zh:"冲浪鸭",en:"DATA DUCK",emoji:"🦆",line:"你不追浪，你读浪；曲线一抬头，你已经换了下一块板。"},
+  GCPT:{zh:"领投羊",en:"LEAD SHEEP",emoji:"🐏",line:"冷项目你敢先下第一张支票，然后让全桌跟上。"},
+  GCPL:{zh:"独角兽",en:"CAVE UNICORN",emoji:"🦄",line:"别人没看懂的人，你敢独自看懂；错了也不怪共识。"},
+  GCNT:{zh:"抄底象",en:"DIP ELEPHANT",emoji:"🐘",line:"价格落到象牙上，你才把折价牌稳稳托起。"},
+  GCNL:{zh:"掘金鼠",en:"GOLD MOUSE",emoji:"🐭",line:"别人扫行业，你刨账本；金子经常藏在脚注第三页。"},
+  WHPT:{zh:"压阵鹅",en:"GUARD GOOSE",emoji:"🦢",line:"风口可以冲，你先站在门口问：谁负责收尾？"},
+  WHPL:{zh:"冷脸猫",en:"COOL CAT",emoji:"🐈‍⬛",line:"全场都上头，你负责不鼓掌；人再牛，也先放远点看。"},
+  WHNT:{zh:"审计龟",en:"CHECK TURTLE",emoji:"🐢",line:"热榜越响，你的卡尺越紧；数字没对上，谁领投都没用。"},
+  WHNL:{zh:"听诊狼",en:"BUBBLE WOLF",emoji:"🐺",line:"你不戳泡沫，先听它什么时候破；慢，是为了咬得准。"},
+  WCPT:{zh:"议长鸦",en:"CROW BOSS",emoji:"🐦‍⬛",line:"冷门局里你先不投，你先让所有人把话说完。"},
+  WCPL:{zh:"识人蛛",en:"FACE SPIDER",emoji:"🕷️",line:"你不追风口，也不急下注；先看谁在网上，谁在网外。"},
+  WCNT:{zh:"研判蚁",en:"WISE ANT",emoji:"🐜",line:"冷数据一粒粒搬齐，再集体给出一锤定音。"},
+  WCNL:{zh:"伏击熊",en:"VALUE BEAR",emoji:"🐻",line:"你可以等很久；价格一进射程，才会发现你根本没睡。"}
+};
+/* 角色正式插画（code -> dataURI/路径）。注入后自动替代emoji占位。 */
+const CHAR_IMG = {};
+
+const AXES = [
+  {key:"gw", a:"G", b:"W", aZh:"敢上", bZh:"稳住", desc:"更倾向出手，还是观察/拒绝"},
+  {key:"hc", a:"H", b:"C", aZh:"追热", bZh:"挖冷", desc:"偏爱风口共识，还是冷门逆向"},
+  {key:"pn", a:"P", b:"N", aZh:"看人", bZh:"看数", desc:"相信团队与关系，还是指标与现金流"},
+  {key:"tl", a:"T", b:"L", aZh:"组团", bZh:"单刷", desc:"依赖领投共识，还是独立判断"}
+];
+
+const PROJECTS = [
+{id:1,name:"嘴替AI",track:"企业AI",round:"A轮",val:"估值4.8亿元",pitch:"替销售开会、写纪要，再自动催客户回消息。",nums:["ARR 3200万元","同比增长180%","续费率82%"],risk:"基础模型正在免费加入同类功能。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"20个月后被头部CRM厂商收购，早期投资人获得3.4倍现金回报。",hook:"大模型没有护城河，销售不想写周报有。"}},
+{id:2,name:"人形端茶局",track:"具身智能",round:"A+轮",val:"估值28亿元",pitch:"先替老板端咖啡，再替工厂拧螺丝。",nums:["签约订单2.6亿元","实际交付47台","远程接管率76%"],risk:"演示效果大量依赖后台人工遥控。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:true,dramaScore:5,summary:"遥控比例被客户曝光，订单集中取消；下一轮估值下调80%，清算回收0.1倍。",hook:"你投的是人形机器人，里面坐着四十个客服。"}},
+{id:3,name:"缺芯寺",track:"国产半导体",round:"B轮",val:"估值16亿元",pitch:"给国产设备补上最后一颗买不到的芯。",nums:["年收入9800万元","车企定点7个","库存周转281天"],risk:"渠道压货严重，定点不等于量产。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"行业下行两年后，一颗电源芯片进入三家车企量产；老股转让实现4.2倍回报。",hook:"所有人都赌国产替代，你碰巧替到了那颗。"}},
+{id:4,name:"量子罗盘",track:"量子科技",round:"Pre-A轮",val:"估值6.5亿元",pitch:"不靠卫星，在隧道和地下室里也知道你在哪。",nums:["商业收入0元","科研经费4200万元","样机漂移0.8米/小时"],risk:"团队全是教授，尚无量产负责人。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"三个商业试点均未通过环境测试，团队回归高校，资产拍卖回收0.2倍。",hook:"量子负责不确定，归零非常确定。"}},
+{id:5,name:"低空接娃",track:"低空经济",round:"A轮",val:"估值12亿元",pitch:"把早高峰从地面搬到天上。",nums:["样机3架","意向订单86架","适航证0张"],risk:"商业模式跑得比适航审批快。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"接娃业务未获批，但景区航线拿证，被省级文旅集团收购，基金回报2.1倍。",hook:"没把孩子送上天，先把基金送出了场。"}},
+{id:6,name:"无人牧羊犬",track:"农业科技",round:"A轮",val:"估值3.6亿元",pitch:"一架无人机盯三千只羊，顺便替保险公司数死活。",nums:["覆盖牧场63家","续费率78%","毛利率46%"],risk:"市场极窄，大客户集中在两个省。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"牲畜险公司将其纳入定损系统，公司实现盈利；下一轮老股退出3.0倍。",hook:"羊没有上市，你先退出了草原。"}},
+{id:7,name:"水逆气象站",track:"气候科技",round:"A轮",val:"估值6.5亿元",pitch:"提前告诉保险公司，哪栋厂房下周要泡水。",nums:["ARR 5100万元","净收入留存率121%","保险客户4家"],risk:"最大客户贡献58%收入，并掌握核心理赔数据。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"一次区域洪灾中预测命中率显著领先，最大客户以4.7倍价格完成收购。",hook:"大家祈祷风调雨顺，只有你的IRR在等暴雨。"}},
+{id:8,name:"阳台储电猫",track:"户用储能",round:"B+轮",val:"估值26亿元",pitch:"白天吃光，晚上吐电。",nums:["海外订单3.1亿元","毛利率31%","退货率14%"],risk:"高度依赖欧洲补贴，渠道库存不可见。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"补贴退坡叠加电芯召回，渠道集中退货，公司一年内进入破产重整。",hook:"电池存住了电，没存住估值。"}},
+{id:9,name:"深海插座",track:"海洋装备",round:"Pre-A轮",val:"估值7.2亿元",pitch:"让海底机器人不用每次浮上来充电。",nums:["工程样机3套","发明专利19项","商业收入0元"],risk:"全部客户仍是意向协议，海试窗口极少。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"示范海试连续推迟六次，现金耗尽；专利打包拍卖，基金回收0.3倍。",hook:"插座真下了海，订单还在岸上。"}},
+{id:10,name:"赘婿流水线",track:"内容出海",round:"A轮",val:"估值8亿元",pitch:"七天生产一部，让全球观众轮流被霸总打脸。",nums:["月收入8200万元","投流占收入57%","头部单剧贡献44%"],risk:"依赖爆款和平台买量，内容没有复利。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"买量价格翻倍后连续两季无爆款，版权库以0.4倍价格出售。",hook:"霸总追到了女主，你没追到下一轮。"}},
+{id:11,name:"退货炼金厂",track:"跨境电商",round:"B轮",val:"估值11亿元",pitch:"把欧美退货拆成还能卖的第二条命。",nums:["年处理GMV 6.2亿元","抽佣率13%","库存周转95天"],risk:"重资产、吃现金流，平台可以随时修改退货接口。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"全国仓网被国际物流公司收购，基金三年实现2.8倍回报。",hook:"别人把退货当垃圾，你把垃圾卖给了战略买家。"}},
+{id:12,name:"宠物家长会",track:"宠物医疗",round:"A轮",val:"估值6.2亿元",pitch:"给猫狗办年卡，每月向主人汇报一次成绩。",nums:["门店38家","付费会员7.4万","续费率66%"],risk:"收入增长依赖高频检查和过度推销。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"内部医生曝光不必要检查，监管处罚并引发集中退卡；公司关店清算，回收0.2倍。",hook:"猫没有九条命，连锁品牌也没有。"}},
+{id:13,name:"代孝机器人",track:"银发科技",round:"种子轮",val:"估值2.6亿元",pitch:"每天替你对爸妈说三百遍“吃药了吗”。",nums:["累计交付1200台","日均使用8分钟","政府采购占70%"],risk:"老人不常用，销量主要来自采购项目。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:true,dramaScore:5,summary:"采购项目被审计，设备退货率升至60%；后续融资失败，清算回收0.1倍。",hook:"机器人天天叫爸，你的本金没人认领。"}},
+{id:14,name:"银发跑腿王",track:"医疗服务",round:"A轮",val:"估值4.1亿元",pitch:"替不在场的子女，陪父母把医院跑明白。",nums:["覆盖21城","年订单120万单","毛利率18%"],risk:"高度依赖人工，并承担服务事故责任。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"标准化服务网络被保险公司与医院集团联合收购，基金回报3.2倍。",hook:"看着不像科技，退出倒很科技。"}},
+{id:15,name:"情绪考勤表",track:"HR SaaS",round:"A轮",val:"估值5.5亿元",pitch:"摄像头看表情，告诉老板谁在假装有干劲。",nums:["ARR 4200万元","企业客户170家","员工拒绝授权率43%"],risk:"隐私合规和算法科学性均存在争议。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:5,summary:"人脸情绪数据被纳入敏感生物信息管理，客户集中解约，公司停止运营。",hook:"它识别了全公司的情绪，没识别出监管的情绪。"}},
+{id:16,name:"小城咖啡泵",track:"无人零售",round:"A轮",val:"估值9亿元",pitch:"把咖啡机塞进县城每个能插电的角落。",nums:["设备1800台","日均23杯","宣称回本周期9个月"],risk:"回本模型未计入租金和维修，单店需求偏低。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"消费者业务增长缓慢，但设备运维网络被便利店集团以2.7倍价格收购。",hook:"它没干掉咖啡馆，只替便利店省了一个店员。"}},
+{id:17,name:"细胞牛排厂",track:"食品科技",round:"B轮",val:"估值32亿元",pitch:"不养牛，直接养牛排。",nums:["成本68元/100克","中试线2条","商业许可0张"],risk:"成本、口感和监管，三个问题都未解决。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"四年后仍未大规模卖肉，但培养基专利被食品巨头收购，基金回报2.5倍。",hook:"牛排没上桌，专利先上了并购菜单。"}},
+{id:18,name:"睡眠酸奶",track:"功能食品",round:"A轮",val:"估值7.8亿元",pitch:"晚安不用关手机，先喝一瓶。",nums:["年GMV 2.4亿元","复购率41%","投流占收入48%"],risk:"助眠功效证据薄弱，增长严重依赖广告。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:4,summary:"“改善睡眠”宣传被叫停，GMV一年下跌72%；品牌以0.3倍价格贱卖。",hook:"消费者睡着了，你的增长也睡着了。"}},
+{id:19,name:"二手算力矿",track:"GPU租赁",round:"A+轮",val:"估值15亿元",pitch:"别人抢新卡，我们把退役显卡拼成云。",nums:["GPU 7800张","利用率92%","资产负债率68%"],risk:"高杠杆，且旧卡价格可能随供给快速下跌。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"算力紧缺持续18个月，区域云厂商以3.8倍价格收购全部机房。",hook:"别人抢新卡，你靠旧卡先下车。"}},
+{id:20,name:"论文缝纫机",track:"教育AI",round:"种子轮",val:"估值1.8亿元",pitch:"自动给论文补上文献、图表和一点自信。",nums:["高校客户80所","ARR 1300万元","教师付费率4%"],risk:"学术诚信争议明显，真实付费人不是使用者。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:true,dramaScore:5,summary:"批量虚构引用被曝光，多所高校禁用并要求退款，公司一年内停运。",hook:"它编出了参考文献，也编没了你的基金。"}},
+{id:21,name:"螺丝眼",track:"工业视觉",round:"C轮",val:"估值24亿元",listing:"计划申报科创板",pitch:"给每颗螺丝做AI体检，漏检一颗赔一箱。",nums:["年收入1.8亿元","毛利率62%","最大客户占比71%"],risk:"最大客户正在自研同类系统。",traits:{hc:"H",pn:"N",tl:"L"},ipo:true,
+ outcome:{isMine:false,dramaScore:4,summary:"三年后登陆科创板，首日上涨96%；大客户自研失败，早期投资人最终实现2.6倍现金回报。",hook:"你投的不是AI，是大客户的研发失败。"}},
+{id:22,name:"液冷仙人掌",track:"数据中心液冷",round:"B+轮",val:"估值35亿元",listing:"科创板预期",pitch:"GPU越热，我们越赚钱。",nums:["年收入6800万元","框架订单5亿元","回款率42%"],risk:"90%收入来自同一家关联渠道商。",traits:{hc:"H",pn:"N",tl:"T"},ipo:true,
+ outcome:{isMine:true,dramaScore:5,summary:"登陆科创板首日上涨218%；关联交易被问询后渠道停止拿货，解禁时较高点下跌74%。",hook:"公司成功上市，你成功被锁住。"}},
+{id:23,name:"零糖珍珠局",track:"新茶饮",round:"Pre-IPO",val:"估值160亿港元",listing:"赴港上市",pitch:"奶茶可以零糖，估值必须全糖。",nums:["门店2300家","加盟占比91%","同店销售下降11%"],risk:"增长主要依赖继续开店。",traits:{hc:"H",pn:"P",tl:"T"},ipo:true,
+ outcome:{isMine:true,dramaScore:5,summary:"港股上市首日破发37%；基金熬了六年仅回收1.3倍。",hook:"创始人敲了钟，LP敲了你。"}},
+{id:24,name:"长寿水母生物",track:"创新药",round:"D轮",val:"估值9.5亿美元",listing:"港股18A",pitch:"从水母里找到让器官忘记变老的多肽。",nums:["暂无收入","核心管线进入二期","现金可支撑18个月"],risk:"单管线失败就要重新讲水母故事。",traits:{hc:"C",pn:"P",tl:"L"},ipo:true,
+ outcome:{isMine:false,dramaScore:5,summary:"港股上市首日上涨32%；半年后临床数据积极并完成海外授权，早期投资人回报5.1倍。",hook:"你没看懂药，但水母看懂了资本市场。"}},
+{id:25,name:"小城按钮王",track:"电梯零部件",round:"老股转让",val:"估值3.2亿元",listing:"新三板",pitch:"全国每三部电梯，就有一部按过它。",nums:["年收入1.4亿元","净利润2100万元","连续三年分红"],risk:"增长慢、客户集中、交易流动性极差。",traits:{hc:"C",pn:"N",tl:"T"},ipo:true,
+ outcome:{isMine:true,dramaScore:5,summary:"挂牌新三板后连续217个交易日零成交；基金账面盈利60%，存续期结束仍找不到接盘方。",hook:"公司每年分红，你的退出按钮一直没亮。"}}
+];
+/* ================= 核心：随机 / 抽样 / 计分 ================= */
+function mulberry32(seed){
+  let a = seed >>> 0;
+  return function(){
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function shuffled(arr, rng){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+const SIGN = t => (t === "H" || t === "P" || t === "T") ? 1 : -1;
+
+/* 回溯抽样：H/C 5-5、P/N 5-5、T/L 5-5、雷4-6、上市1-3、同赛道≤2 */
+function pickTen(pool){
+  const cnt = {H:0,C:0,P:0,N:0,T:0,L:0,mine:0,safe:0,ipo:0,tracks:{}};
+  const chosen = [];
+  function bt(idx){
+    if(chosen.length === 10){
+      return cnt.H===5 && cnt.P===5 && cnt.T===5 &&
+             cnt.mine>=4 && cnt.mine<=6 && cnt.ipo>=1 && cnt.ipo<=3;
+    }
+    if(pool.length - idx < 10 - chosen.length) return false;
+    const p = pool[idx];
+    const tr = cnt.tracks[p.track] || 0;
+    const canTake =
+      cnt[p.traits.hc] < 5 && cnt[p.traits.pn] < 5 && cnt[p.traits.tl] < 5 &&
+      tr < 2 &&
+      (p.outcome.isMine ? cnt.mine < 6 : cnt.safe < 6) &&
+      (!p.ipo || cnt.ipo < 3);
+    if(canTake){
+      cnt[p.traits.hc]++; cnt[p.traits.pn]++; cnt[p.traits.tl]++;
+      cnt.tracks[p.track] = tr + 1;
+      if(p.outcome.isMine) cnt.mine++; else cnt.safe++;
+      if(p.ipo) cnt.ipo++;
+      chosen.push(p);
+      if(bt(idx + 1)) return true;
+      chosen.pop();
+      cnt[p.traits.hc]--; cnt[p.traits.pn]--; cnt[p.traits.tl]--;
+      cnt.tracks[p.track] = tr;
+      if(p.outcome.isMine) cnt.mine--; else cnt.safe--;
+      if(p.ipo) cnt.ipo--;
+    }
+    return bt(idx + 1);
+  }
+  return bt(0) ? chosen.slice() : null;
+}
+/* 同一标签方向不连续出现超过3题 */
+function orderOk(list){
+  for(const ax of ["hc","pn","tl"]){
+    let run = 1;
+    for(let i = 1; i < list.length; i++){
+      run = (list[i].traits[ax] === list[i-1].traits[ax]) ? run + 1 : 1;
+      if(run > 3) return false;
+    }
+  }
+  return true;
+}
+function sampleRound(seed){
+  const rng = mulberry32(seed);
+  for(let attempt = 0; attempt < 300; attempt++){
+    const pool = shuffled(PROJECTS, rng);
+    const ten = pickTen(pool);
+    if(!ten) continue;
+    for(let t = 0; t < 80; t++){
+      const order = shuffled(ten, rng);
+      if(orderOk(order)) return order;
+    }
+  }
+  /* 理论上不可达的兜底：放弃顺序约束 */
+  const rng2 = mulberry32(seed ^ 0x9e3779b9);
+  return pickTen(shuffled(PROJECTS, rng2)) || PROJECTS.slice(0, 10);
+}
+
+/* ---------- 计分 ----------
+choices[i] = {id, action:'invest'|'pass'|'look', remaining(0-9，决策速度证据，仅用于破平局), qIndex}
+*/
+const GW_W  = {invest: 4, pass: -2, look: -4};
+const AX_W  = {invest: 4, pass: -2, look:  1};
+
+function computePersonality(choices, projMap){
+  const detail = {axes:{}, lowConfidence:false, manualCount:0};
+  let code = "";
+  /* G/W 行为轴 */
+  let gw = 0;
+  choices.forEach(c => { gw += GW_W[c.action]; });
+  code += gw > 0 ? "G" : "W";
+  detail.axes.gw = {score: gw, letter: gw > 0 ? "G" : "W"};
+  detail.manualCount = choices.filter(c => c.action !== "timeout").length;
+
+  /* 三条偏好轴 */
+  for(const ax of ["hc","pn","tl"]){
+    const A = {hc:"H",pn:"P",tl:"T"}[ax], B = {hc:"C",pn:"N",tl:"L"}[ax];
+    let score = 0;
+    choices.forEach(c => {
+      score += AX_W[c.action] * SIGN(projMap[c.id].traits[ax]);
+    });
+    let letter, how = "score";
+    if(score > 0) letter = A;
+    else if(score < 0) letter = B;
+    else {
+      /* 平局1：证据 × 剩余时间/9（仅手动决策，仅用于破平局） */
+      let w = 0;
+      choices.forEach(c => {
+        if(c.action === "timeout") return;
+        w += AX_W[c.action] * SIGN(projMap[c.id].traits[ax]) * (c.remaining / 9);
+      });
+      if(w > 0){ letter = A; how = "speed"; }
+      else if(w < 0){ letter = B; how = "speed"; }
+      else {
+        /* 平局2：最快完成的手动决策对应标签 */
+        const manual = choices.filter(c => c.action !== "timeout")
+          .sort((x, y) => y.remaining - x.remaining);
+        if(manual.length){
+          letter = projMap[manual[0].id].traits[ax]; how = "fastest";
+        } else {
+          letter = B; how = "default"; detail.lowConfidence = true;
+        }
+      }
+    }
+    code += letter;
+    detail.axes[ax] = {score, letter, how};
+  }
+  detail.code = code;
+  return detail;
+}
+
+/* ---------- 统计 ---------- */
+function computeStats(choices, projMap){
+  const inv  = choices.filter(c => c.action === "invest");
+  const pass = choices.filter(c => c.action === "pass");
+  const look = choices.filter(c => c.action === "look" || c.action === "timeout");
+  const mines = inv.filter(c => projMap[c.id].outcome.isMine);
+  return {
+    investRate: inv.length * 10, passRate: pass.length * 10, lookRate: look.length * 10,
+    investN: inv.length, mineN: mines.length,
+    mineRate: inv.length ? Math.round(mines.length / inv.length * 100) : null
+  };
+}
+
+/* ---------- 代表项目 ---------- */
+function pickRepresentative(choices, projMap, code){
+  const letters = {hc: code[1], pn: code[2], tl: code[3]};
+  const repScore = p => {
+    let m = 0;
+    for(const ax of ["hc","pn","tl"]) if(p.traits[ax] === letters[ax]) m++;
+    return 2 * m + p.outcome.dramaScore;
+  };
+  const best = list => {
+    let win = null, ws = -1;
+    for(const c of list){ /* choices按题序，同分取更早 */
+      const s = repScore(projMap[c.id]);
+      if(s > ws){ ws = s; win = c; }
+    }
+    return win;
+  };
+  const inv = choices.filter(c => c.action === "invest");
+  if(inv.length)  return {c: best(inv),  mode: "invest"};
+  const look = choices.filter(c => c.action === "look");
+  if(look.length) return {c: best(look), mode: "look"};
+  const pass = choices.filter(c => c.action === "pass");
+  if(pass.length) return {c: best(pass), mode: "pass"};
+  return {c: best(choices), mode: "timeout"};
+}
+const REP_LABEL = {
+  invest: n => `你投了「${n}」`,
+  look:   n => `你盯上了「${n}」`,
+  pass:   n => `你放过了「${n}」`,
+  timeout:n => `你错过了「${n}」`
+};
+/* ================= 游戏流程与界面 ================= */
+const $ = id => document.getElementById(id);
+const SKEY = "dealzoo_v1";
+const PROJ_MAP = {}; PROJECTS.forEach(p => PROJ_MAP[p.id] = p);
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const S = {
+  seed: 0, order: [], idx: 0, choices: [],
+  qStart: 0, phase: "home", answered: false, result: null
+};
+
+function save(){
+  try{
+    sessionStorage.setItem(SKEY, JSON.stringify({
+      seed: S.seed, idx: S.idx, choices: S.choices
+    }));
+  }catch(e){}
+}
+function loadSaved(){
+  try{
+    const raw = sessionStorage.getItem(SKEY);
+    if(!raw) return null;
+    const d = JSON.parse(raw);
+    if(!d || typeof d.seed !== "number" || !Array.isArray(d.choices)) return null;
+    if(d.choices.length >= 10) return null;
+    return d;
+  }catch(e){ return null; }
+}
+function clearSaved(){ try{ sessionStorage.removeItem(SKEY); }catch(e){} }
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  $(id).classList.add("active");
+  S.phase = id;
+  window.scrollTo(0, 0);
+}
+function setFamilyColor(code){
+  const fam = FAMILY[code.slice(0, 2)];
+  document.documentElement.style.setProperty("--fam", fam.color);
+}
+function figHTML(code, cls){
+  if(CHAR_IMG[code]) return `<img src="${CHAR_IMG[code]}" alt="${TYPES[code].zh}" class="${cls||''}">`;
+  return TYPES[code].emoji;
+}
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+/* ---------- 开局 ---------- */
+function newGame(seed){
+  S.seed = seed == null ? ((Date.now() ^ (Math.random() * 0xffffffff)) >>> 0) : seed;
+  S.order = sampleRound(S.seed).map(p => p.id);
+  S.idx = 0; S.choices = []; S.result = null;
+  document.documentElement.style.setProperty("--fam", "#d94a2b");
+  save();
+  show("transition");
+  setTimeout(() => { startQuestion(); }, reduceMotion ? 150 : 900);
+}
+function resumeGame(saved){
+  S.seed = saved.seed;
+  S.order = sampleRound(S.seed).map(p => p.id);
+  S.idx = saved.idx; S.choices = saved.choices;
+  startQuestion();
+}
+
+/* ---------- 出题 ---------- */
+function startQuestion(){
+  const p = PROJ_MAP[S.order[S.idx]];
+  S.answered = false;
+  renderCard(p);
+  renderTop();
+  show("game");
+  [$("btnPass"), $("btnLook"), $("btnInvest")].forEach(b => b.disabled = false);
+  /* 记录本题起点，用于人格平局时的“决策速度”证据 */
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    S.qStart = performance.now();
+  }));
+}
+function renderCard(p){
+  const meta = [p.track, p.round, p.val].concat(p.listing ? [p.listing] : []).join(" / ");
+  const nums = p.nums.map(n => `<div class="p-num">${n}</div>`).join("");
+  $("pcard").innerHTML = `
+    <div class="p-left">
+      <h2 class="p-name">${p.name}</h2>
+      <span class="p-meta">${meta}</span>
+      <p class="p-pitch">${p.pitch}</p>
+    </div>
+    <div class="p-right">
+      <div class="p-nums">${nums}</div>
+      <p class="p-risk"><b>明牌风险</b>${p.risk}</p>
+    </div>`;
+}
+function renderTop(){
+  $("qnum").textContent = (S.idx + 1) + "/10";
+  const segs = $("segs");
+  segs.innerHTML = "";
+  for(let i = 0; i < 10; i++){
+    const d = document.createElement("div");
+    d.className = "seg" + (i < S.idx ? " done" : i === S.idx ? " now" : "");
+    segs.appendChild(d);
+  }
+  segs.setAttribute("aria-valuenow", S.idx + 1);
+  segs.setAttribute("aria-label", `第${S.idx + 1}题，共10题`);
+}
+/* ---------- 作答 ---------- */
+const STAMP_TXT = {invest:"投了", pass:"PASS", look:"再看看"};
+const STAMP_COL = {invest:"var(--ok)", pass:"var(--bad)", look:"var(--ink2)"};
+function choose(action){
+  if(S.answered || S.phase !== "game") return;
+  S.answered = true;
+  /* 决策速度证据（仅用于人格平局裁决）：9秒内越快越强，超过9秒记0 */
+  const elapsed = Math.max(0, (performance.now() - S.qStart) / 1000);
+  const remaining = Math.max(0, 9 - elapsed);
+  S.choices.push({id: S.order[S.idx], action, remaining: Math.round(remaining * 100) / 100, qIndex: S.idx});
+  [$("btnPass"), $("btnLook"), $("btnInvest")].forEach(b => b.disabled = true);
+  const st = $("stamp"), sx = $("stampText");
+  sx.textContent = STAMP_TXT[action];
+  sx.style.color = STAMP_COL[action];
+  st.classList.add("show");
+  setTimeout(() => {
+    st.classList.remove("show");
+    S.idx++;
+    save();
+    if(S.idx >= 10){ finishRound(); } else { startQuestion(); }
+  }, 200);
+}
+
+/* ---------- 结束与揭晓 ---------- */
+function finishRound(){
+  clearSaved();
+  const det = computePersonality(S.choices, PROJ_MAP);
+  const stats = computeStats(S.choices, PROJ_MAP);
+  const rep = pickRepresentative(S.choices, PROJ_MAP, det.code);
+  S.result = {det, stats, rep, code: det.code};
+  setFamilyColor(det.code);
+  const fig = $("revealFig");
+  fig.innerHTML = figHTML(det.code);
+  fig.classList.remove("lit");
+  show("reveal");
+  setTimeout(() => fig.classList.add("lit"), reduceMotion ? 0 : 60);
+  setTimeout(() => { renderResult(); show("result"); }, reduceMotion ? 200 : 560);
+}
+
+function axisRowHTML(ax, det){
+  if(ax.key === "gw"){
+    const d = det.axes.gw;
+    return `<div class="axis-row"><span>${ax.aZh} G / ${ax.bZh} W</span><b>${d.letter} · 出手分 ${d.score > 0 ? "+" : ""}${d.score}</b></div>`;
+  }
+  const d = det.axes[ax.key];
+  const howTxt = {score:"", speed:"（以决策速度破平局）", fastest:"（以最快手动决策破平局）", default:"（无手动证据，取默认）"}[d.how];
+  return `<div class="axis-row"><span>${ax.aZh} ${ax.a} / ${ax.bZh} ${ax.b}</span><b>${d.letter} · 偏好分 ${d.score > 0 ? "+" : ""}${d.score}${howTxt}</b></div>`;
+}
+
+function renderResult(){
+  const {det, stats, rep, code} = S.result;
+  const T = TYPES[code];
+  document.title = `我是「${T.zh}」· 创投动物园`;
+  $("rcFig").innerHTML = figHTML(code);
+  $("rcCode").textContent = code.split("").join(" ");
+  $("rcZh").textContent = T.zh;
+  $("rcEn").textContent = T.en;
+  $("rcLine").textContent = T.line;
+
+  const rp = PROJ_MAP[rep.c.id];
+  $("rcProj").innerHTML = `
+    <div class="tag">${rep.mode === "invest" ? "代表项目" : "本局记忆点"}</div>
+    <div class="pname">${REP_LABEL[rep.mode](rp.name)}</div>
+    <div class="psum">${rp.outcome.summary}</div>
+    <div class="phook">${rp.outcome.hook}</div>`;
+
+  $("rcStats").innerHTML = `
+    <div class="rc-stat"><div class="v">${stats.investRate}%</div><div class="k">投资率</div></div>
+    <div class="rc-stat"><div class="v">${stats.passRate}%</div><div class="k">PASS率</div></div>
+    <div class="rc-stat"><div class="v">${stats.lookRate}%</div><div class="k">再看看率</div></div>
+    <div class="rc-stat"><div class="v">${stats.mineRate == null ? "—" : stats.mineRate + "%"}</div>
+      <div class="k">${stats.mineRate == null ? "本局未出手" : "中雷率"}</div></div>`;
+
+  const notes = [];
+  if(det.lowConfidence) notes.push("部分轴证据不足，按默认口径判定（低置信度）。");
+  $("lowconfNote").hidden = !notes.length;
+  $("lowconfNote").textContent = notes.join(" ");
+
+  /* 为什么是这个人格 */
+  let why = AXES.map(ax => axisRowHTML(ax, det)).join("");
+  const mineDetail = stats.investN
+    ? `<div class="axis-row"><span>投资项目命中地雷</span><b>中雷${stats.mineN}/${stats.investN} · ${stats.mineRate}%</b></div>` : "";
+  $("whyBody").innerHTML = why + mineDetail;
+
+  /* 10个项目完整结局 */
+  const ACT_TXT = {invest:"你：投了", pass:"你：PASS", look:"你：再看看"};
+  $("ocBody").innerHTML = S.choices.map(c => {
+    const p = PROJ_MAP[c.id];
+    const mine = p.outcome.isMine;
+    return `<div class="oc">
+      <div class="oc-top">
+        <span class="oc-name">${p.name}</span>
+        <span class="oc-badge ${mine ? "mine" : "safe"}">${mine ? "中雷" : "非雷"}</span>
+      </div>
+      <div class="oc-you">${ACT_TXT[c.action]}</div>
+      <div class="oc-sum">${p.outcome.summary}</div>
+      <div class="oc-hook">${p.outcome.hook}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ---------- 输入绑定 ---------- */
+$("btnStart").addEventListener("click", () => { clearSaved(); newGame(); });
+$("btnAgain").addEventListener("click", () => { clearSaved(); newGame(); });
+$("btnPass").addEventListener("click", () => choose("pass"));
+$("btnLook").addEventListener("click", () => choose("look"));
+$("btnInvest").addEventListener("click", () => choose("invest"));
+document.addEventListener("keydown", e => {
+  if(S.phase !== "game") return;
+  if(e.key === "1") choose("pass");
+  else if(e.key === "2") choose("look");
+  else if(e.key === "3") choose("invest");
+});
+
+/* ---------- 启动：续局检查 ---------- */
+(function init(){
+  const saved = loadSaved();
+  if(saved && saved.choices.length > 0 && saved.choices.length < 10){
+    $("resumeBox").hidden = false;
+    $("btnResume").addEventListener("click", () => resumeGame(saved));
+    $("btnRestart").addEventListener("click", () => { clearSaved(); $("resumeBox").hidden = true; });
+  }
+})();
+
+/* ================= 分享图（1080×1440 Canvas）与降级链路 ================= */
+const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+
+function rr(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function wrapText(ctx, text, x, y, maxW, lh, maxLines){
+  const chars = [...text];
+  let line = "", lines = 0;
+  for(const ch of chars){
+    if(ctx.measureText(line + ch).width > maxW && line){
+      ctx.fillText(line, x, y); y += lh; line = ch;
+      if(++lines >= (maxLines || 9) - 1){ line += "…"; break; }
+    } else line += ch;
+  }
+  if(line) ctx.fillText(line, x, y);
+  return y + lh;
+}
+function drawQRPlaceholder(ctx, x, y, s){
+  ctx.fillStyle = "#fff"; rr(ctx, x, y, s, s, 8); ctx.fill();
+  ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 4; rr(ctx, x, y, s, s, 8); ctx.stroke();
+  const n = 7, cell = (s - 24) / n, rng = mulberry32(20260712);
+  ctx.fillStyle = "#2a2118";
+  for(let i = 0; i < n; i++) for(let j = 0; j < n; j++){
+    if((i < 2 && j < 2) || (i < 2 && j >= n - 2) || (i >= n - 2 && j < 2) || rng() > .55)
+      ctx.fillRect(x + 12 + i * cell + 1, y + 12 + j * cell + 1, cell - 2, cell - 2);
+  }
+  ctx.fillStyle = "#5c5142"; ctx.font = "700 18px sans-serif"; ctx.textAlign = "center";
+  ctx.fillText("二维码占位", x + s / 2, y + s + 26);
+}
+function buildShareCanvas(){
+  const {det, stats, rep, code} = S.result;
+  const T = TYPES[code], fam = FAMILY[code.slice(0, 2)].color;
+  const W = 1080, H = 1440;
+  const cv = document.createElement("canvas");
+  cv.width = W; cv.height = H;
+  const ctx = cv.getContext("2d");
+
+  /* 纸底 + 细点纹 */
+  ctx.fillStyle = "#f4ead3"; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = "rgba(42,33,24,.05)";
+  for(let x = 20; x < W; x += 36) for(let y = 20; y < H; y += 36) ctx.fillRect(x, y, 3, 3);
+  /* 外框 */
+  ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 6;
+  rr(ctx, 24, 24, W - 48, H - 48, 28); ctx.stroke();
+
+  const FONT = '"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif';
+  /* 头部 */
+  ctx.fillStyle = "#5c5142"; ctx.textAlign = "left";
+  ctx.font = `800 30px ${FONT}`; ctx.fillText("创 投 动 物 园", 72, 96);
+  ctx.textAlign = "right"; ctx.fillText("DEAL ZOO 16", W - 72, 96);
+
+  /* 家族色大圆 + 形象 */
+  const cx = W / 2, cy = 430, R = 255;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.fillStyle = fam; ctx.fill();
+  ctx.lineWidth = 6; ctx.strokeStyle = "#2a2118"; ctx.stroke();
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  if(CHAR_IMG[code] && CHAR_IMG._loaded && CHAR_IMG._loaded[code]){
+    const img = CHAR_IMG._loaded[code], s = 430;
+    ctx.drawImage(img, cx - s / 2, cy - s / 2, s, s);
+  } else {
+    ctx.font = `300px "Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",${FONT}`;
+    ctx.fillText(T.emoji, cx, cy + 14);
+  }
+  ctx.textBaseline = "alphabetic";
+
+  /* 编码 / 名称 */
+  ctx.fillStyle = "#2a2118";
+  ctx.font = `900 88px ${FONT}`;
+  ctx.fillText(code.split("").join("  "), cx, 810);
+  ctx.font = `900 76px ${FONT}`;
+  ctx.fillText(T.zh, cx, 900);
+  ctx.fillStyle = fam; ctx.font = `800 32px ${FONT}`;
+  ctx.fillText(T.en, cx, 948);
+
+  /* 人格钩子 */
+  ctx.fillStyle = "#5c5142"; ctx.font = `600 34px ${FONT}`;
+  wrapText(ctx, T.line, cx, 1010, 880, 46, 2);
+
+  /* 代表项目（含完整结局） */
+  const rp = PROJ_MAP[rep.c.id];
+  ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 4;
+  ctx.fillStyle = "rgba(255,255,255,.65)";
+  rr(ctx, 72, 1040, W - 144, 200, 18); ctx.fill(); ctx.stroke();
+  ctx.textAlign = "left";
+  ctx.fillStyle = fam; ctx.font = `800 24px ${FONT}`;
+  ctx.fillText(rep.mode === "invest" ? "代表项目" : "本局记忆点", 100, 1078);
+  ctx.fillStyle = "#2a2118"; ctx.font = `900 34px ${FONT}`;
+  ctx.fillText(REP_LABEL[rep.mode](rp.name), 100, 1120);
+  ctx.font = `500 24px ${FONT}`;
+  wrapText(ctx, rp.outcome.summary, 100, 1156, W - 200, 32, 2);
+  ctx.fillStyle = "#8a7a5f"; ctx.font = `italic 500 22px ${FONT}`;
+  wrapText(ctx, rp.outcome.hook, 100, 1222, W - 200, 28, 1);
+
+  /* 四项统计（右侧留出二维码区） */
+  const stX = 72, stY = 1258, stW = 780, stH = 100, cw = stW / 4;
+  ctx.fillStyle = "rgba(255,255,255,.65)";
+  rr(ctx, stX, stY, stW, stH, 18); ctx.fill();
+  ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 4; rr(ctx, stX, stY, stW, stH, 18); ctx.stroke();
+  const cells = [
+    [stats.investRate + "%", "投资率"],
+    [stats.passRate + "%", "PASS率"],
+    [stats.lookRate + "%", "再看看率"],
+    [stats.mineRate == null ? "—" : stats.mineRate + "%", stats.mineRate == null ? "本局未出手" : "中雷率"]
+  ];
+  ctx.textAlign = "center";
+  cells.forEach((c, i) => {
+    if(i){ ctx.beginPath(); ctx.moveTo(stX + cw * i, stY + 12); ctx.lineTo(stX + cw * i, stY + stH - 12); ctx.stroke(); }
+    ctx.fillStyle = "#2a2118"; ctx.font = `900 38px ${FONT}`;
+    ctx.fillText(c[0], stX + cw * i + cw / 2, stY + 50);
+    ctx.fillStyle = "#5c5142"; ctx.font = `600 20px ${FONT}`;
+    ctx.fillText(c[1], stX + cw * i + cw / 2, stY + 82);
+  });
+
+  /* 底部：声明 + 二维码占位 */
+  ctx.textAlign = "left"; ctx.fillStyle = "#5c5142"; ctx.font = `500 22px ${FONT}`;
+  ctx.fillText("全部公司、数字及结局均为虚构 · 不构成投资建议", 72, 1404);
+  drawQRPlaceholder(ctx, W - 72 - 96, 1258, 96);
+  return cv;
+}
+function shareText(){
+  const {code, stats} = S.result, T = TYPES[code];
+  const mine = stats.mineRate == null ? "本局未出手" : `中雷率${stats.mineRate}%`;
+  return `【创投动物园】刷完10个项目，我是「${T.zh} ${code}」——${T.line} 投资率${stats.investRate}%，${mine}。这个项目我看过，你是哪种投资动物？`;
+}
+function canvasBlob(cv){
+  return new Promise(res => cv.toBlob(b => res(b), "image/png"));
+}
+async function getPng(){
+  try{
+    const cv = buildShareCanvas();
+    const blob = await canvasBlob(cv);
+    if(!blob) throw new Error("no blob");
+    return {blob, url: cv.toDataURL("image/png")};
+  }catch(e){ return null; }
+}
+function downloadPng(url){
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `dealzoo-${S.result.code}.png`;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+function showOverlay(url, tip){
+  $("overlayImg").src = url;
+  $("overlayTip").textContent = tip || "长按图片保存";
+  $("imgOverlay").classList.add("show");
+}
+$("overlayClose").addEventListener("click", () => $("imgOverlay").classList.remove("show"));
+
+async function copyText(){
+  const txt = shareText();
+  try{ await navigator.clipboard.writeText(txt); toast("文案已复制"); }
+  catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast("文案已复制"); }
+    catch(e2){ toast("复制失败，请手动复制"); }
+    ta.remove();
+  }
+}
+$("btnCopyText").addEventListener("click", copyText);
+
+$("btnSavePng").addEventListener("click", async () => {
+  const png = await getPng();
+  if(!png){ toast("生成失败，请直接截图结果卡"); return; }
+  if(isWeChat){ showOverlay(png.url, "微信内请长按图片保存"); return; }
+  downloadPng(png.url);
+  toast("已保存 PNG");
+});
+
+$("btnShare").addEventListener("click", async () => {
+  const png = await getPng();
+  const text = shareText();
+  /* 1) 文件分享 */
+  if(png && navigator.canShare){
+    const file = new File([png.blob], `dealzoo-${S.result.code}.png`, {type: "image/png"});
+    if(navigator.canShare({files: [file]})){
+      try{ await navigator.share({files: [file], text}); return; }
+      catch(e){ if(e && e.name === "AbortError") return; }
+    }
+  }
+  /* 2) 仅文字 Web Share */
+  if(navigator.share){
+    try{ await navigator.share({text, url: location.href}); return; }
+    catch(e){ if(e && e.name === "AbortError") return; }
+  }
+  /* 3) 微信：长按保存 */
+  if(isWeChat && png){ showOverlay(png.url, "微信内请长按图片保存，再发给朋友"); return; }
+  /* 4) PC剪贴板图片 */
+  if(png && navigator.clipboard && window.ClipboardItem){
+    try{
+      await navigator.clipboard.write([new ClipboardItem({"image/png": png.blob})]);
+      toast("结果卡已复制到剪贴板");
+      return;
+    }catch(e){}
+  }
+  /* 5) 下载 + 复制文案 */
+  if(png){ downloadPng(png.url); }
+  await copyText();
+  if(!png) toast("图片生成失败，请直接截图结果卡");
+});
+
+/* 分享图字体预热：部分浏览器首次绘制emoji会缺字 */
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(() => {}); }
+
+/* 角色正式插画预加载：向CHAR_IMG注入 code->dataURI 后自动生效（页面与分享图共用） */
+(function preloadCharImages(){
+  CHAR_IMG._loaded = {};
+  Object.keys(TYPES).forEach(code => {
+    if(!CHAR_IMG[code]) return;
+    const img = new Image();
+    img.onload = () => { CHAR_IMG._loaded[code] = img; };
+    img.src = CHAR_IMG[code];
+  });
+})();
+</script>
+</body>
+</html>
