@@ -117,6 +117,7 @@ h1.title{font-size:clamp(30px,8vw,44px);font-weight:900;letter-spacing:.04em}
 .rc-fig{position:relative;font-size:clamp(64px,22vw,96px);line-height:1}
 .rc-fig img{width:auto;height:clamp(100px,30vw,190px);object-fit:contain;display:block}
 .rc-code{font-size:clamp(26px,8vw,36px);font-weight:900;letter-spacing:.3em;text-align:center}
+.rc-axes{text-align:center;font-size:11px;font-weight:700;color:var(--ink2);letter-spacing:.02em;margin:2px 0 4px}
 .rc-name{display:flex;justify-content:center;align-items:baseline;gap:10px}
 .rc-zh{font-size:clamp(24px,7vw,32px);font-weight:900}
 .rc-en{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--fam)}
@@ -264,6 +265,7 @@ details.fold[open] summary::after{content:"－"}
       <div class="rc-head"><span>创投动物园</span><span>DEAL ZOO 16</span></div>
       <div class="rc-figwrap"><div class="rc-circle"></div><div class="rc-fig" id="rcFig">🦄</div></div>
       <div class="rc-code" id="rcCode">GHPT</div>
+      <div class="rc-axes" id="rcAxes"></div>
       <div class="rc-name"><span class="rc-zh" id="rcZh">组局豹</span><span class="rc-en" id="rcEn">LEAD LEOPARD</span></div>
       <div class="rc-line" id="rcLine"></div>
       <div class="rc-proj" id="rcProj"></div>
@@ -325,6 +327,16 @@ const TYPES = {
 };
 /* 角色正式插画（code -> dataURI/路径）。注入后自动替代emoji占位。 */
 const CHAR_IMG = {};
+/* 真实二维码（dataURI）。留空时显示占位。 */
+const QR_IMG = "";
+/* 四轴字母释义 */
+const LETTER_INFO = {
+  G:["敢上","GO"], W:["稳住","WAIT"],
+  H:["追热","HOT"], C:["挖冷","COLD"],
+  P:["看人","PEOPLE"], N:["看数","NUMBERS"],
+  T:["组团","TEAM"], L:["单刷","LONE"]
+};
+const lettersLine = code => code.split("").map(L => `${L}=${LETTER_INFO[L][0]}${LETTER_INFO[L][1]}`).join(" · ");
 
 const AXES = [
   {key:"gw", a:"G", b:"W", aZh:"敢上", bZh:"稳住", desc:"更倾向出手，还是观察/拒绝"},
@@ -722,6 +734,9 @@ function renderResult(){
   document.title = `我是「${T.zh}」· 创投动物园`;
   $("rcFig").innerHTML = figHTML(code);
   $("rcCode").textContent = code.split("").join(" ");
+  $("rcAxes").textContent = lettersLine(code);
+  const qrBox = document.querySelector(".rc-qr");
+  if(QR_IMG) qrBox.innerHTML = `<img src="${QR_IMG}" alt="二维码" style="width:100%;height:100%;object-fit:contain;border-radius:4px">`;
   $("rcZh").textContent = T.zh;
   $("rcEn").textContent = T.en;
   $("rcLine").textContent = T.line;
@@ -815,6 +830,19 @@ function wrapText(ctx, text, x, y, maxW, lh, maxLines){
   if(line) ctx.fillText(line, x, y);
   return y + lh;
 }
+let QR_LOADED = null;
+if(QR_IMG){ QR_LOADED = new Image(); QR_LOADED.src = QR_IMG; }
+function drawQR(ctx, x, y, s){
+  if(QR_LOADED && QR_LOADED.complete && QR_LOADED.naturalWidth){
+    ctx.fillStyle = "#fff"; rr(ctx, x, y, s, s, 8); ctx.fill();
+    ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 4; rr(ctx, x, y, s, s, 8); ctx.stroke();
+    ctx.drawImage(QR_LOADED, x + 6, y + 6, s - 12, s - 12);
+    ctx.fillStyle = "#5c5142"; ctx.font = "700 18px sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("扫码入园", x + s / 2, y + s + 26);
+    return;
+  }
+  drawQRPlaceholder(ctx, x, y, s);
+}
 function drawQRPlaceholder(ctx, x, y, s){
   ctx.fillStyle = "#fff"; rr(ctx, x, y, s, s, 8); ctx.fill();
   ctx.strokeStyle = "#2a2118"; ctx.lineWidth = 4; rr(ctx, x, y, s, s, 8); ctx.stroke();
@@ -864,18 +892,20 @@ function buildShareCanvas(){
   }
   ctx.textBaseline = "alphabetic";
 
-  /* 编码 / 名称 */
+  /* 编码 / 字母释义 / 名称 */
   ctx.fillStyle = "#2a2118";
-  ctx.font = `900 88px ${FONT}`;
-  ctx.fillText(code.split("").join("  "), cx, 810);
-  ctx.font = `900 76px ${FONT}`;
-  ctx.fillText(T.zh, cx, 900);
+  ctx.font = `900 84px ${FONT}`;
+  ctx.fillText(code.split("").join("  "), cx, 796);
+  ctx.fillStyle = "#5c5142"; ctx.font = `700 24px ${FONT}`;
+  ctx.fillText(lettersLine(code), cx, 836);
+  ctx.fillStyle = "#2a2118"; ctx.font = `900 74px ${FONT}`;
+  ctx.fillText(T.zh, cx, 916);
   ctx.fillStyle = fam; ctx.font = `800 32px ${FONT}`;
-  ctx.fillText(T.en, cx, 948);
+  ctx.fillText(T.en, cx, 960);
 
   /* 人格钩子 */
   ctx.fillStyle = "#5c5142"; ctx.font = `600 34px ${FONT}`;
-  wrapText(ctx, T.line, cx, 1010, 880, 46, 2);
+  wrapText(ctx, T.line, cx, 1008, 880, 42, 2);
 
   /* 代表项目（含完整结局） */
   const rp = PROJ_MAP[rep.c.id];
@@ -915,7 +945,7 @@ function buildShareCanvas(){
   /* 底部：声明 + 二维码占位 */
   ctx.textAlign = "left"; ctx.fillStyle = "#5c5142"; ctx.font = `500 22px ${FONT}`;
   ctx.fillText("全部公司、数字及结局均为虚构 · 不构成投资建议", 72, 1404);
-  drawQRPlaceholder(ctx, W - 72 - 96, 1258, 96);
+  drawQR(ctx, W - 72 - 96, 1258, 96);
   return cv;
 }
 function shareText(){
