@@ -234,7 +234,7 @@ details.fold[open] summary::after{content:"－"}
     </div>
     <ul class="rules">
       <li>从25个虚构项目中随机抽10个，不限时，凭直觉刷完。</li>
-      <li>三个选择：<b>PASS ｜ 下轮再投 ｜ 投了</b>。</li>
+      <li>三个选择：<b>PASS ｜ 下轮再投 ｜ 投了</b>；有的项目，下一轮才是好价格。</li>
       <li>每题只能选一次，不能返回修改。</li>
       <li>10题结束，揭晓你的四字母投资动物人格。</li>
     </ul>
@@ -335,22 +335,22 @@ const FAMILY = {
   GH:{color:"#d94a2b"}, GC:{color:"#7c4fb0"}, WH:{color:"#1f7f99"}, WC:{color:"#c98f1f"}
 };
 const TYPES = {
-  GHPT:{zh:"组局豹",en:"LEAD LEOPARD",emoji:"🐆",line:"项目还没定，你已经把下一轮的人拉进群了。"},
-  GHPL:{zh:"火箭猴",en:"ROCKET MONKEY",emoji:"🐵",line:"风口刚冒烟，你已经点火；别人问数据，你问几点发车。"},
-  GHNT:{zh:"定价鸡",en:"PRICE ROOSTER",emoji:"🐓",line:"越热的局越要先报数，你用估值表把共识钉在墙上。"},
-  GHNL:{zh:"冲浪鸭",en:"DATA DUCK",emoji:"🦆",line:"你不追浪，你读浪；曲线一抬头，你已经换了下一块板。"},
-  GCPT:{zh:"领投羊",en:"LEAD SHEEP",emoji:"🐏",line:"冷项目你敢先下第一张支票，然后让全桌跟上。"},
-  GCPL:{zh:"独角兽",en:"CAVE UNICORN",emoji:"🦄",line:"别人没看懂的人，你敢独自看懂；错了也不怪共识。"},
-  GCNT:{zh:"抄底象",en:"DIP ELEPHANT",emoji:"🐘",line:"价格落到象牙上，你才把折价牌稳稳托起。"},
-  GCNL:{zh:"掘金鼠",en:"GOLD MOUSE",emoji:"🐭",line:"别人扫行业，你刨账本；金子经常藏在脚注第三页。"},
-  WHPT:{zh:"压阵鹅",en:"GUARD GOOSE",emoji:"🦢",line:"风口可以冲，你先站在门口问：谁负责收尾？"},
-  WHPL:{zh:"冷脸猫",en:"COOL CAT",emoji:"🐈‍⬛",line:"全场都上头，你负责不鼓掌；人再牛，也先放远点看。"},
-  WHNT:{zh:"审计龟",en:"CHECK TURTLE",emoji:"🐢",line:"热榜越响，你的卡尺越紧；数字没对上，谁领投都没用。"},
-  WHNL:{zh:"听诊狼",en:"BUBBLE WOLF",emoji:"🐺",line:"你不戳泡沫，先听它什么时候破；慢，是为了咬得准。"},
-  WCPT:{zh:"议长鸦",en:"CROW BOSS",emoji:"🐦‍⬛",line:"冷门局里你先不投，你先让所有人把话说完。"},
-  WCPL:{zh:"识人蛛",en:"FACE SPIDER",emoji:"🕷️",line:"你不追风口，也不急下注；先看谁在网上，谁在网外。"},
-  WCNT:{zh:"研判蚁",en:"WISE ANT",emoji:"🐜",line:"冷数据一粒粒搬齐，再集体给出一锤定音。"},
-  WCNL:{zh:"伏击熊",en:"VALUE BEAR",emoji:"🐻",line:"你可以等很久；价格一进射程，才会发现你根本没睡。"}
+  GHPT:{zh:"组局豹",en:"LEAD LEOPARD",emoji:"🐆",line:"TS还没签，下一轮的群你已经建好；项目黄了群不散，改名“行业交流”。"},
+  GHPL:{zh:"火箭猴",en:"ROCKET MONKEY",emoji:"🐵",line:"你的尽调只有一项：创始人眼里有没有光；有光就打款，慢就是贵。"},
+  GHNT:{zh:"定价鸡",en:"PRICE ROOSTER",emoji:"🐓",line:"共识还没成形，你先把估值甩进群里；别人还在算，价已经被你锚死了。"},
+  GHNL:{zh:"冲浪鸭",en:"DATA DUCK",emoji:"🦆",line:"你比风口早到十五分钟，也早撤十五分钟；山顶接盘的人还在谢你带路。"},
+  GCPT:{zh:"领投羊",en:"LEAD SHEEP",emoji:"🐏",line:"冷场的项目你先拍支票，再挨个打电话：“我都投了，你还等什么？”"},
+  GCPL:{zh:"独角兽",en:"CAVE UNICORN",emoji:"🦄",line:"他被二十家机构拒完，你发了TS；两年后那二十家，排队来问你要额度。"},
+  GCNT:{zh:"抄底象",en:"DIP ELEPHANT",emoji:"🐘",line:"行情越冷，你微信越热闹：每个急着退出的人，最后都加了你好友。"},
+  GCNL:{zh:"掘金鼠",en:"GOLD MOUSE",emoji:"🐭",line:"你从不读BP正文，直接翻财务附注第三页——那里埋着创始人不想说的事。"},
+  WHPT:{zh:"压阵鹅",en:"GUARD GOOSE",emoji:"🦢",line:"每个热闹的局都需要你：大家聊愿景，你问退出；大家敬创始人，你敬回购条款。"},
+  WHPL:{zh:"冷脸猫",en:"COOL CAT",emoji:"🐈‍⬛",line:"创始人一频繁上台领奖，你就把他移出跟进列表——你只信没空演讲的人。"},
+  WHNT:{zh:"审计龟",en:"CHECK TURTLE",emoji:"🐢",line:"风口到你手里先过三张表；“战略性亏损”你听一次划一次重点——重点是亏损。"},
+  WHNL:{zh:"听诊狼",en:"BUBBLE WOLF",emoji:"🐺",line:"你从不说泡沫会破，只记录它的呼吸；别人问为什么不投，你说在等它咳嗽。"},
+  WCPT:{zh:"议长鸦",en:"CROW BOSS",emoji:"🐦‍⬛",line:"投决会上你说话最少、否得最多；你的原则：让他讲完，讲完就露馅了。"},
+  WCPL:{zh:"识人蛛",en:"FACE SPIDER",emoji:"🕷️",line:"见面前你已经打过三个电话；他一开口讲愿景，你就听得出哪句是排练过的。"},
+  WCNT:{zh:"研判蚁",en:"WISE ANT",emoji:"🐜",line:"别人在天上抢星星，你在泥潭里捞月光；捞上来那天，人人都说早就看好。"},
+  WCNL:{zh:"伏击熊",en:"VALUE BEAR",emoji:"🐻",line:"你的心理价位三年没变过，变的是市场——它总会跌回来向你道歉。"}
 };
 /* 角色正式插画（code -> dataURI/路径）。注入后自动替代emoji占位。 */
 const CHAR_IMG = {};
@@ -373,55 +373,55 @@ const AXES = [
 ];
 
 const PROJECTS = [
-{id:1,name:"嘴替AI",track:"企业AI",round:"A轮",val:"估值4.8亿元",pitch:"替销售开会、写纪要，再自动催客户回消息。",nums:["ARR 3200万元","同比增长180%","续费率82%"],risk:"基础模型正在免费加入同类功能。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+{id:1,ptype:"now",name:"嘴替AI",track:"企业AI",round:"A轮",val:"估值4.8亿元",pitch:"替销售开会、写纪要，再自动催客户回消息。",nums:["ARR 3200万元","同比增长180%","续费率82%"],risk:"大模型下个版本更新，免费送你的全部功能。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
  outcome:{isMine:false,dramaScore:4,summary:"20个月后被头部CRM厂商收购，早期投资人获得3.4倍现金回报。",hook:"大模型没有护城河，销售不想写周报有。"}},
-{id:2,name:"人形端茶局",track:"具身智能",round:"A+轮",val:"估值28亿元",pitch:"先替老板端咖啡，再替工厂拧螺丝。",nums:["签约订单2.6亿元","实际交付47台","远程接管率76%"],risk:"演示效果大量依赖后台人工遥控。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
+{id:2,ptype:"mine",name:"人形端茶局",track:"具身智能",round:"A+轮",val:"估值28亿元",pitch:"先替老板端咖啡，再替工厂拧螺丝。",nums:["签约订单2.6亿元","实际交付47台","远程接管率76%"],risk:"演示效果大量依赖后台人工遥控。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
  outcome:{isMine:true,dramaScore:5,summary:"遥控比例被客户曝光，订单集中取消；下一轮估值下调80%，清算回收0.1倍。",hook:"你投的是人形机器人，里面坐着四十个客服。"}},
-{id:3,name:"缺芯寺",track:"国产半导体",round:"B轮",val:"估值16亿元",pitch:"给国产设备补上最后一颗买不到的芯。",nums:["年收入9800万元","车企定点7个","库存周转281天"],risk:"渠道压货严重，定点不等于量产。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
- outcome:{isMine:false,dramaScore:4,summary:"行业下行两年后，一颗电源芯片进入三家车企量产；老股转让实现4.2倍回报。",hook:"所有人都赌国产替代，你碰巧替到了那颗。"}},
-{id:4,name:"量子罗盘",track:"量子科技",round:"Pre-A轮",val:"估值6.5亿元",pitch:"不靠卫星，在隧道和地下室里也知道你在哪。",nums:["商业收入0元","科研经费4200万元","样机漂移0.8米/小时"],risk:"团队全是教授，尚无量产负责人。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
+{id:3,ptype:"wait",name:"缺芯寺",track:"国产半导体",round:"B轮",val:"估值16亿元",pitch:"给国产设备补上最后一颗买不到的芯。",nums:["年收入9800万元","车企定点7个","库存周转281天"],risk:"定点7个，下单0个——定点是请柬，不是订单。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"B轮后行业连跌两年、估值腰斩；随后一颗电源芯片进入三家车企量产，腰斩位进场的投资人拿到4.2倍。",hook:"所有人都赌国产替代，赢的是等到出清的那批。",v:{invest:"你按16亿进场，腰斩后熬到量产，只回本1.3倍。",look:"你等到估值腰斩再进，量产兑现，4.2倍落袋。",pass:"你嫌它压货，它后来真量产了。"}}},
+{id:4,ptype:"mine",name:"量子罗盘",track:"量子科技",round:"Pre-A轮",val:"估值6.5亿元",pitch:"不靠卫星，在隧道和地下室里也知道你在哪。",nums:["商业收入0元","科研经费4200万元","样机漂移0.8米/小时"],risk:"团队全是教授，尚无量产负责人。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"三个商业试点均未通过环境测试，团队回归高校，资产拍卖回收0.2倍。",hook:"量子负责不确定，归零非常确定。"}},
-{id:5,name:"低空接娃",track:"低空经济",round:"A轮",val:"估值12亿元",pitch:"把早高峰从地面搬到天上。",nums:["样机3架","意向订单86架","适航证0张"],risk:"商业模式跑得比适航审批快。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
- outcome:{isMine:false,dramaScore:3,summary:"接娃业务未获批，但景区航线拿证，被省级文旅集团收购，基金回报2.1倍。",hook:"没把孩子送上天，先把基金送出了场。"}},
-{id:6,name:"无人牧羊犬",track:"农业科技",round:"A轮",val:"估值3.6亿元",pitch:"一架无人机盯三千只羊，顺便替保险公司数死活。",nums:["覆盖牧场63家","续费率78%","毛利率46%"],risk:"市场极窄，大客户集中在两个省。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
- outcome:{isMine:false,dramaScore:3,summary:"牲畜险公司将其纳入定损系统，公司实现盈利；下一轮老股退出3.0倍。",hook:"羊没有上市，你先退出了草原。"}},
-{id:7,name:"水逆气象站",track:"气候科技",round:"A轮",val:"估值6.5亿元",pitch:"提前告诉保险公司，哪栋厂房下周要泡水。",nums:["ARR 5100万元","净收入留存率121%","保险客户4家"],risk:"最大客户贡献58%收入，并掌握核心理赔数据。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
+{id:5,ptype:"wait",name:"低空接娃",track:"低空经济",round:"A轮",val:"估值12亿元",pitch:"把早高峰从地面搬到天上。",nums:["样机3架","意向订单86架","适航证0张"],risk:"商业模式跑得比适航审批快。",traits:{hc:"H",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"接娃业务被适航卡死，估值回撤六成；景区航线拿证后被省级文旅集团收购，低点进场者回报2.1倍。",hook:"孩子没上天，等证的人先上岸了。",v:{invest:"你按A轮价进场，摊薄两轮，最后拿回0.9倍。",look:"你等到拿证信号再进，收购退出2.1倍。",pass:"它真拿证了，你没回来。"}}},
+{id:6,ptype:"now",name:"无人牧羊犬",track:"农业科技",round:"A轮",val:"估值3.6亿元",pitch:"一架无人机盯三千只羊，顺便替保险公司数死活。",nums:["覆盖牧场63家","续费率78%","毛利率46%"],risk:"市场极窄，大客户集中在两个省。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"牲畜险公司将其纳入定损系统，公司实现盈利；下一轮老股退出3.0倍。",hook:"三千只羊都数清了，就是没数到自己能被收购。"}},
+{id:7,ptype:"now",name:"水逆气象站",track:"气候科技",round:"A轮",val:"估值6.5亿元",pitch:"提前告诉保险公司，哪栋厂房下周要泡水。",nums:["ARR 5100万元","净收入留存率121%","保险客户4家"],risk:"58%收入来自一个客户，命门数据也在他手里。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
  outcome:{isMine:false,dramaScore:4,summary:"一次区域洪灾中预测命中率显著领先，最大客户以4.7倍价格完成收购。",hook:"大家祈祷风调雨顺，只有你的IRR在等暴雨。"}},
-{id:8,name:"阳台储电猫",track:"户用储能",round:"B+轮",val:"估值26亿元",pitch:"白天吃光，晚上吐电。",nums:["海外订单3.1亿元","毛利率31%","退货率14%"],risk:"高度依赖欧洲补贴，渠道库存不可见。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+{id:8,ptype:"mine",name:"阳台储电猫",track:"户用储能",round:"B+轮",val:"估值26亿元",pitch:"白天吃光，晚上吐电。",nums:["海外订单3.1亿元","毛利率31%","退货率14%"],risk:"高度依赖欧洲补贴，渠道库存不可见。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"补贴退坡叠加电芯召回，渠道集中退货，公司一年内进入破产重整。",hook:"电池存住了电，没存住估值。"}},
-{id:9,name:"深海插座",track:"海洋装备",round:"Pre-A轮",val:"估值7.2亿元",pitch:"让海底机器人不用每次浮上来充电。",nums:["工程样机3套","发明专利19项","商业收入0元"],risk:"全部客户仍是意向协议，海试窗口极少。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+{id:9,ptype:"mine",name:"深海插座",track:"海洋装备",round:"Pre-A轮",val:"估值7.2亿元",pitch:"让海底机器人不用每次浮上来充电。",nums:["工程样机3套","发明专利19项","商业收入0元"],risk:"订单全是“有意向”，海一年只让你下去试两次。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"示范海试连续推迟六次，现金耗尽；专利打包拍卖，基金回收0.3倍。",hook:"插座真下了海，订单还在岸上。"}},
-{id:10,name:"赘婿流水线",track:"内容出海",round:"A轮",val:"估值8亿元",pitch:"七天生产一部，让全球观众轮流被霸总打脸。",nums:["月收入8200万元","投流占收入57%","头部单剧贡献44%"],risk:"依赖爆款和平台买量，内容没有复利。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+{id:10,ptype:"mine",name:"赘婿流水线",track:"内容出海",round:"A轮",val:"估值8亿元",pitch:"七天生产一部，让全球观众轮流被霸总打脸。",nums:["月收入8200万元","投流占收入57%","头部单剧贡献44%"],risk:"依赖爆款和平台买量，内容没有复利。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"买量价格翻倍后连续两季无爆款，版权库以0.4倍价格出售。",hook:"霸总追到了女主，你没追到下一轮。"}},
-{id:11,name:"退货炼金厂",track:"跨境电商",round:"B轮",val:"估值11亿元",pitch:"把欧美退货拆成还能卖的第二条命。",nums:["年处理GMV 6.2亿元","抽佣率13%","库存周转95天"],risk:"重资产、吃现金流，平台可以随时修改退货接口。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
+{id:11,ptype:"now",name:"退货炼金厂",track:"跨境电商",round:"B轮",val:"估值11亿元",pitch:"欧美人退掉的快递，在你仓库里投第二次胎。",nums:["年处理GMV 6.2亿元","抽佣率13%","库存周转95天"],risk:"重资产、吃现金流，平台可以随时修改退货接口。",traits:{hc:"C",pn:"N",tl:"T"},ipo:false,
  outcome:{isMine:false,dramaScore:3,summary:"全国仓网被国际物流公司收购，基金三年实现2.8倍回报。",hook:"别人把退货当垃圾，你把垃圾卖给了战略买家。"}},
-{id:12,name:"宠物家长会",track:"宠物医疗",round:"A轮",val:"估值6.2亿元",pitch:"给猫狗办年卡，每月向主人汇报一次成绩。",nums:["门店38家","付费会员7.4万","续费率66%"],risk:"收入增长依赖高频检查和过度推销。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+{id:12,ptype:"mine",name:"宠物家长会",track:"宠物医疗",round:"A轮",val:"估值6.2亿元",pitch:"给猫狗办年卡，每月向主人汇报一次成绩。",nums:["门店38家","付费会员7.4万","续费率66%"],risk:"收入增长依赖高频检查和过度推销。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"内部医生曝光不必要检查，监管处罚并引发集中退卡；公司关店清算，回收0.2倍。",hook:"猫没有九条命，连锁品牌也没有。"}},
-{id:13,name:"代孝机器人",track:"银发科技",round:"种子轮",val:"估值2.6亿元",pitch:"每天替你对爸妈说三百遍“吃药了吗”。",nums:["累计交付1200台","日均使用8分钟","政府采购占70%"],risk:"老人不常用，销量主要来自采购项目。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+{id:13,ptype:"mine",name:"代孝机器人",track:"银发科技",round:"种子轮",val:"估值2.6亿元",pitch:"每天替你对爸妈说三百遍“吃药了吗”。",nums:["累计交付1200台","日均使用8分钟","政府采购占70%"],risk:"老人不常用，销量主要来自采购项目。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
  outcome:{isMine:true,dramaScore:5,summary:"采购项目被审计，设备退货率升至60%；后续融资失败，清算回收0.1倍。",hook:"机器人天天叫爸，你的本金没人认领。"}},
-{id:14,name:"银发跑腿王",track:"医疗服务",round:"A轮",val:"估值4.1亿元",pitch:"替不在场的子女，陪父母把医院跑明白。",nums:["覆盖21城","年订单120万单","毛利率18%"],risk:"高度依赖人工，并承担服务事故责任。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
- outcome:{isMine:false,dramaScore:3,summary:"标准化服务网络被保险公司与医院集团联合收购，基金回报3.2倍。",hook:"看着不像科技，退出倒很科技。"}},
-{id:15,name:"情绪考勤表",track:"HR SaaS",round:"A轮",val:"估值5.5亿元",pitch:"摄像头看表情，告诉老板谁在假装有干劲。",nums:["ARR 4200万元","企业客户170家","员工拒绝授权率43%"],risk:"隐私合规和算法科学性均存在争议。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
+{id:14,ptype:"now",name:"银发跑腿王",track:"医疗服务",round:"A轮",val:"估值4.1亿元",pitch:"替不在场的子女，陪父母把医院跑明白。",nums:["覆盖21城","年订单120万单","毛利率18%"],risk:"高度依赖人工，并承担服务事故责任。",traits:{hc:"C",pn:"P",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"标准化服务网络被保险公司与医院集团联合收购，基金回报3.2倍。",hook:"全公司没有一行代码，退出却快过所有AI公司。"}},
+{id:15,ptype:"mine",name:"情绪考勤表",track:"HR SaaS",round:"A轮",val:"估值5.5亿元",pitch:"摄像头看表情，告诉老板谁在假装有干劲。",nums:["ARR 4200万元","企业客户170家","员工拒绝授权率43%"],risk:"隐私合规和算法科学性均存在争议。",traits:{hc:"H",pn:"N",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:5,summary:"人脸情绪数据被纳入敏感生物信息管理，客户集中解约，公司停止运营。",hook:"它识别了全公司的情绪，没识别出监管的情绪。"}},
-{id:16,name:"小城咖啡泵",track:"无人零售",round:"A轮",val:"估值9亿元",pitch:"把咖啡机塞进县城每个能插电的角落。",nums:["设备1800台","日均23杯","宣称回本周期9个月"],risk:"回本模型未计入租金和维修，单店需求偏低。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
- outcome:{isMine:false,dramaScore:3,summary:"消费者业务增长缓慢，但设备运维网络被便利店集团以2.7倍价格收购。",hook:"它没干掉咖啡馆，只替便利店省了一个店员。"}},
-{id:17,name:"细胞牛排厂",track:"食品科技",round:"B轮",val:"估值32亿元",pitch:"不养牛，直接养牛排。",nums:["成本68元/100克","中试线2条","商业许可0张"],risk:"成本、口感和监管，三个问题都未解决。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
- outcome:{isMine:false,dramaScore:4,summary:"四年后仍未大规模卖肉，但培养基专利被食品巨头收购，基金回报2.5倍。",hook:"牛排没上桌，专利先上了并购菜单。"}},
-{id:18,name:"睡眠酸奶",track:"功能食品",round:"A轮",val:"估值7.8亿元",pitch:"晚安不用关手机，先喝一瓶。",nums:["年GMV 2.4亿元","复购率41%","投流占收入48%"],risk:"助眠功效证据薄弱，增长严重依赖广告。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
+{id:16,ptype:"wait",name:"小城咖啡泵",track:"无人零售",round:"A轮",val:"估值9亿元",pitch:"把咖啡机塞进县城每个能插电的角落。",nums:["设备1800台","日均23杯","宣称回本周期9个月"],risk:"回本模型未计入租金和维修，单店需求偏低。",traits:{hc:"C",pn:"P",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:3,summary:"消费故事撑不住，估值跌回4亿；转型设备运维后被便利店集团收购，低位进场者拿到2.7倍。",hook:"它没干掉咖啡馆，只替会等的人省了一半估值。",v:{invest:"你为咖啡故事付了9亿的价，按运维公司退出，0.8倍。",look:"你等它跌回4亿、转型清晰后进场，2.7倍。",pass:"转型后真值钱了，你没再看它一眼。"}}},
+{id:17,ptype:"wait",name:"细胞牛排厂",track:"食品科技",round:"B轮",val:"估值32亿元",pitch:"不养牛，直接养牛排。",nums:["成本68元/100克","中试线2条","商业许可0张"],risk:"成本、口感和监管，三个问题都未解决。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"四年没等到卖肉许可，估值从32亿跌到12亿；培养基专利被食品巨头收购，低位股东回报2.5倍。",hook:"牛排没上桌，耐心先上了并购菜单。",v:{invest:"你按32亿进场，等来专利收购，刚好回本。",look:"你在12亿的B-轮进场，专利卖出时2.5倍。",pass:"你笑它讲故事，专利变现那天没你。"}}},
+{id:18,ptype:"mine",name:"睡眠酸奶",track:"功能食品",round:"A轮",val:"估值7.8亿元",pitch:"晚安不用关手机，先喝一瓶。",nums:["年GMV 2.4亿元","复购率41%","投流占收入48%"],risk:"助眠功效证据薄弱，增长严重依赖广告。",traits:{hc:"H",pn:"P",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:4,summary:"“改善睡眠”宣传被叫停，GMV一年下跌72%；品牌以0.3倍价格贱卖。",hook:"消费者睡着了，你的增长也睡着了。"}},
-{id:19,name:"二手算力矿",track:"GPU租赁",round:"A+轮",val:"估值15亿元",pitch:"别人抢新卡，我们把退役显卡拼成云。",nums:["GPU 7800张","利用率92%","资产负债率68%"],risk:"高杠杆，且旧卡价格可能随供给快速下跌。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
- outcome:{isMine:false,dramaScore:4,summary:"算力紧缺持续18个月，区域云厂商以3.8倍价格收购全部机房。",hook:"别人抢新卡，你靠旧卡先下车。"}},
-{id:20,name:"论文缝纫机",track:"教育AI",round:"种子轮",val:"估值1.8亿元",pitch:"自动给论文补上文献、图表和一点自信。",nums:["高校客户80所","ARR 1300万元","教师付费率4%"],risk:"学术诚信争议明显，真实付费人不是使用者。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
+{id:19,ptype:"wait",name:"二手算力矿",track:"GPU租赁",round:"A+轮",val:"估值15亿元",pitch:"别人抢新卡，我们把退役显卡拼成云。",nums:["GPU 7800张","利用率92%","资产负债率68%"],risk:"高杠杆，且旧卡价格可能随供给快速下跌。",traits:{hc:"H",pn:"N",tl:"T"},ipo:false,
+ outcome:{isMine:false,dramaScore:4,summary:"旧卡价格闪崩一次，公司险些爆仓、估值砍半；随后算力紧缺18个月，区域云厂商收购全部机房，低点进场者3.8倍。",hook:"铲子铺最值钱的时候，是它差点倒掉之后。",v:{invest:"你在杠杆顶点进场，闪崩时被摊薄，最后1.2倍。",look:"你等它熬过闪崩再进，收购退出3.8倍。",pass:"它熬过了闪崩，你没等到收购那天。"}}},
+{id:20,ptype:"mine",name:"论文缝纫机",track:"教育AI",round:"种子轮",val:"估值1.8亿元",pitch:"自动给论文补上文献、图表和一点自信。",nums:["高校客户80所","ARR 1300万元","教师付费率4%"],risk:"学术诚信争议明显，真实付费人不是使用者。",traits:{hc:"C",pn:"N",tl:"L"},ipo:false,
  outcome:{isMine:true,dramaScore:5,summary:"批量虚构引用被曝光，多所高校禁用并要求退款，公司一年内停运。",hook:"它编出了参考文献，也编没了你的基金。"}},
-{id:21,name:"螺丝眼",track:"工业视觉",round:"C轮",val:"估值24亿元",listing:"计划申报科创板",pitch:"给每颗螺丝做AI体检，漏检一颗赔一箱。",nums:["年收入1.8亿元","毛利率62%","最大客户占比71%"],risk:"最大客户正在自研同类系统。",traits:{hc:"H",pn:"N",tl:"L"},ipo:true,
- outcome:{isMine:false,dramaScore:4,summary:"三年后登陆科创板，首日上涨96%；大客户自研失败，早期投资人最终实现2.6倍现金回报。",hook:"你投的不是AI，是大客户的研发失败。"}},
-{id:22,name:"液冷仙人掌",track:"数据中心液冷",round:"B+轮",val:"估值35亿元",listing:"科创板预期",pitch:"GPU越热，我们越赚钱。",nums:["年收入6800万元","框架订单5亿元","回款率42%"],risk:"90%收入来自同一家关联渠道商。",traits:{hc:"H",pn:"N",tl:"T"},ipo:true,
+{id:21,ptype:"wait",name:"螺丝眼",track:"工业视觉",round:"C轮",val:"估值24亿元",listing:"计划申报科创板",pitch:"给每颗螺丝做AI体检，漏检一颗赔一箱。",nums:["年收入1.8亿元","毛利率62%","最大客户占比71%"],risk:"最大客户正在自研同类系统。",traits:{hc:"H",pn:"N",tl:"L"},ipo:true,
+ outcome:{isMine:false,dramaScore:4,summary:"大客户自研传闻压了估值一整年、下轮折价融资；自研失败确认后三年登陆科创板，首日上涨96%，折价轮进场者2.6倍。",hook:"你投的不是AI，是等出来的确定性。",v:{invest:"你在传闻前的24亿进场，被折价轮摊薄，最终1.1倍。",look:"你等自研失败确认后进场，上市退出2.6倍。",pass:"传闻辟谣那天，你已经不跟了。"}}},
+{id:22,ptype:"mine",name:"液冷仙人掌",track:"数据中心液冷",round:"B+轮",val:"估值35亿元",listing:"科创板预期",pitch:"GPU越热，我们越赚钱。",nums:["年收入6800万元","框架订单5亿元","回款率42%"],risk:"90%收入来自同一家关联渠道商。",traits:{hc:"H",pn:"N",tl:"T"},ipo:true,
  outcome:{isMine:true,dramaScore:5,summary:"登陆科创板首日上涨218%；关联交易被问询后渠道停止拿货，解禁时较高点下跌74%。",hook:"公司成功上市，你成功被锁住。"}},
-{id:23,name:"零糖珍珠局",track:"新茶饮",round:"Pre-IPO",val:"估值160亿港元",listing:"赴港上市",pitch:"奶茶可以零糖，估值必须全糖。",nums:["门店2300家","加盟占比91%","同店销售下降11%"],risk:"增长主要依赖继续开店。",traits:{hc:"H",pn:"P",tl:"T"},ipo:true,
+{id:23,ptype:"mine",name:"零糖珍珠局",track:"新茶饮",round:"Pre-IPO",val:"估值160亿港元",listing:"赴港上市",pitch:"奶茶可以零糖，估值必须全糖。",nums:["门店2300家","加盟占比91%","同店销售下降11%"],risk:"增长主要依赖继续开店。",traits:{hc:"H",pn:"P",tl:"T"},ipo:true,
  outcome:{isMine:true,dramaScore:5,summary:"港股上市首日破发37%；基金熬了六年仅回收1.3倍。",hook:"创始人敲了钟，LP敲了你。"}},
-{id:24,name:"长寿水母生物",track:"创新药",round:"D轮",val:"估值9.5亿美元",listing:"港股18A",pitch:"从水母里找到让器官忘记变老的多肽。",nums:["暂无收入","核心管线进入二期","现金可支撑18个月"],risk:"单管线失败就要重新讲水母故事。",traits:{hc:"C",pn:"P",tl:"L"},ipo:true,
+{id:24,ptype:"now",name:"长寿水母生物",track:"创新药",round:"D轮",val:"估值9.5亿美元",listing:"港股18A",pitch:"从水母里找到让器官忘记变老的多肽。",nums:["暂无收入","核心管线进入二期","现金可支撑18个月"],risk:"单管线失败就要重新讲水母故事。",traits:{hc:"C",pn:"P",tl:"L"},ipo:true,
  outcome:{isMine:false,dramaScore:5,summary:"港股上市首日上涨32%；半年后临床数据积极并完成海外授权，早期投资人回报5.1倍。",hook:"你没看懂药，但水母看懂了资本市场。"}},
-{id:25,name:"小城按钮王",track:"电梯零部件",round:"老股转让",val:"估值3.2亿元",listing:"新三板",pitch:"全国每三部电梯，就有一部按过它。",nums:["年收入1.4亿元","净利润2100万元","连续三年分红"],risk:"增长慢、客户集中、交易流动性极差。",traits:{hc:"C",pn:"N",tl:"T"},ipo:true,
+{id:25,ptype:"mine",name:"小城按钮王",track:"电梯零部件",round:"老股转让",val:"估值3.2亿元",listing:"新三板",pitch:"全国每三部电梯，就有一部按过它。",nums:["年收入1.4亿元","净利润2100万元","连续三年分红"],risk:"增长慢、客户集中、交易流动性极差。",traits:{hc:"C",pn:"N",tl:"T"},ipo:true,
  outcome:{isMine:true,dramaScore:5,summary:"挂牌新三板后连续217个交易日零成交；基金账面盈利60%，存续期结束仍找不到接盘方。",hook:"公司每年分红，你的退出按钮一直没亮。"}}
 ];
 /* ================= 核心：随机 / 抽样 / 计分 ================= */
@@ -444,34 +444,35 @@ function shuffled(arr, rng){
 }
 const SIGN = t => (t === "H" || t === "P" || t === "T") ? 1 : -1;
 
-/* 回溯抽样：H/C 5-5、P/N 5-5、T/L 5-5、雷4-6、上市1-3、同赛道≤2 */
+/* 回溯抽样：H/C 5-5、P/N 5-5、T/L 5-5、类型配比(雷4-5/等等2-3/立投3-4)、上市1-3、同赛道≤2 */
 function pickTen(pool){
-  const cnt = {H:0,C:0,P:0,N:0,T:0,L:0,mine:0,safe:0,ipo:0,tracks:{}};
+  const cnt = {H:0,C:0,P:0,N:0,T:0,L:0,mine:0,wait:0,now:0,ipo:0,tracks:{}};
   const chosen = [];
   function bt(idx){
     if(chosen.length === 10){
       return cnt.H===5 && cnt.P===5 && cnt.T===5 &&
-             cnt.mine>=4 && cnt.mine<=6 && cnt.ipo>=1 && cnt.ipo<=3;
+             cnt.mine>=4 && cnt.wait>=2 && cnt.now>=3 &&
+             cnt.ipo>=1 && cnt.ipo<=3;
     }
     if(pool.length - idx < 10 - chosen.length) return false;
     const p = pool[idx];
     const tr = cnt.tracks[p.track] || 0;
+    const CAP = {mine:5, wait:3, now:4};
     const canTake =
       cnt[p.traits.hc] < 5 && cnt[p.traits.pn] < 5 && cnt[p.traits.tl] < 5 &&
-      tr < 2 &&
-      (p.outcome.isMine ? cnt.mine < 6 : cnt.safe < 6) &&
+      tr < 2 && cnt[p.ptype] < CAP[p.ptype] &&
       (!p.ipo || cnt.ipo < 3);
     if(canTake){
       cnt[p.traits.hc]++; cnt[p.traits.pn]++; cnt[p.traits.tl]++;
       cnt.tracks[p.track] = tr + 1;
-      if(p.outcome.isMine) cnt.mine++; else cnt.safe++;
+      cnt[p.ptype]++;
       if(p.ipo) cnt.ipo++;
       chosen.push(p);
       if(bt(idx + 1)) return true;
       chosen.pop();
       cnt[p.traits.hc]--; cnt[p.traits.pn]--; cnt[p.traits.tl]--;
       cnt.tracks[p.track] = tr;
-      if(p.outcome.isMine) cnt.mine--; else cnt.safe--;
+      cnt[p.ptype]--;
       if(p.ipo) cnt.ipo--;
     }
     return bt(idx + 1);
@@ -559,15 +560,30 @@ function computePersonality(choices, projMap){
 }
 
 /* ---------- 统计 ---------- */
+/* 三类型 × 三动作 → 四类别 */
+function judgeChoice(p, action){
+  const invested = action === "invest";
+  if(p.ptype === "now")  return invested ? ["命中","hit"] : ["MISS","miss"];
+  if(p.ptype === "wait") return invested ? ["追高","mine"] : (action === "look" ? ["命中","hit"] : ["MISS","miss"]);
+  return invested ? ["中雷","mine"] : ["避雷","dodge"];
+}
+const VERDICT_TPL = {
+  now:  {invest:"这轮就是好价格，你上对了车。", look:"你想下轮再上，下轮已经没有你的份额。", pass:"你亲手放走了它。"},
+  wait: {invest:"你买在了这轮高点。", look:"你等到了好价格。", pass:"你彻底错过了它。"},
+  mine: {invest:"你的钱和它一起沉了。", look:"跟了半年会没打款，钱保住了。", pass:"你看穿了它。"}
+};
+const verdictOf = (p, action) => (p.outcome.v && p.outcome.v[action]) || VERDICT_TPL[p.ptype][action];
+
 function computeStats(choices, projMap){
   const inv  = choices.filter(c => c.action === "invest");
   const pass = choices.filter(c => c.action === "pass");
   const look = choices.filter(c => c.action === "look");
-  /* 四分类：好项目投了=命中；差项目投了=中雷；差项目没投=避雷；好项目没投=MISS */
+  /* 四分类由 judgeChoice 给出：命中(hit)/中雷或追高(mine)/避雷(dodge)/MISS(miss) */
   let hit = 0, mine = 0, dodge = 0, miss = 0;
   choices.forEach(c => {
-    const bad = projMap[c.id].outcome.isMine, invested = c.action === "invest";
-    if(invested){ bad ? mine++ : hit++; } else { bad ? dodge++ : miss++; }
+    const cls = judgeChoice(projMap[c.id], c.action)[1];
+    if(cls === "hit") hit++; else if(cls === "mine") mine++;
+    else if(cls === "dodge") dodge++; else miss++;
   });
   return {
     investRate: inv.length * 10, passRate: pass.length * 10, lookRate: look.length * 10,
@@ -827,16 +843,15 @@ function renderResult(){
 
   /* 10个项目完整结局 */
   const ACT_TXT = {invest:"你：投了", pass:"你：PASS", look:"你：下轮再投"};
-  const CAT = (bad, invested) => invested ? (bad ? ["中雷","mine"] : ["命中","hit"]) : (bad ? ["避雷","dodge"] : ["MISS","miss"]);
   $("ocBody").innerHTML = S.choices.map(c => {
     const p = PROJ_MAP[c.id];
-    const [catTxt, catCls] = CAT(p.outcome.isMine, c.action === "invest");
+    const [catTxt, catCls] = judgeChoice(p, c.action);
     return `<div class="oc">
       <div class="oc-top">
         <span class="oc-name">${p.name}</span>
         <span class="oc-badge ${catCls}">${catTxt}</span>
       </div>
-      <div class="oc-you">${ACT_TXT[c.action]}</div>
+      <div class="oc-you">${ACT_TXT[c.action]} —— ${verdictOf(p, c.action)}</div>
       <div class="oc-sum">${p.outcome.summary}</div>
       <div class="oc-hook">${p.outcome.hook}</div>
     </div>`;
